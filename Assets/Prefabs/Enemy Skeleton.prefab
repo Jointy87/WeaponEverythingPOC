@@ -186,13 +186,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  attackRange: 1
+  attackRange: 1.75
   attackInterval: 1
   attackPoint: {fileID: 9018830515805101562}
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
   attackPointRadius: 0.5
+  weaponPickup: {fileID: 1420253899358861232, guid: 624767c343ec92f458b34f7bcafda8d6,
+    type: 3}
 --- !u!1 &6875383053739927350
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class CharacterCombatHandler : MonoBehaviour
     //Cache
     Animator animator;
     Rigidbody2D rb;
-    CapsuleCollider2D collider;
+    new CapsuleCollider2D collider;
 
     //States
     bool isDashing = false;
@@ -45,6 +45,8 @@ public class CharacterCombatHandler : MonoBehaviour
         {
             enemy.GetComponent<EnemyController>().Die();
         }
+
+        FindObjectOfType<WeaponStashSystem>().RemoveFromStash();
     }
 
     public void StartDash(float move)
