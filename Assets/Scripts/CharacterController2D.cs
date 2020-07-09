@@ -1,28 +1,36 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class CharacterController2D : MonoBehaviour
 {
-    [SerializeField] private float m_MoveSpeed = 50f;                           // Movement speed when player moves horizontally.
-    [SerializeField] private float m_JumpVelocity = 20f;
-    [SerializeField] private float m_FallMultiplier = 2.5f;
-    [SerializeField] private float m_lowJumpMultiplier = 2f;
-    [SerializeField] private float m_DashSpeed = 10f;
-    [Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
-    [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;  // How much to smooth out the movement
-    [SerializeField] private bool m_AirControl = false;                         // Whether or not a player can steer while jumping;
-    [SerializeField] private LayerMask m_WhatIsGround;                          // A mask determining what is ground to the character
-    [SerializeField] private Transform m_GroundCheck;                           // A position marking where to check if the player is grounded.
-    [SerializeField] private Transform m_CeilingCheck;                          // A position marking where to check for ceilings
-    [SerializeField] private Collider2D m_CrouchDisableCollider;                // A collider that will be disabled when crouching
+    [SerializeField] private float moveSpeed = 50f;                           // Movement speed when player moves horizontally.
+    [SerializeField] private float dashSpeed = 750f;
+    [SerializeField] private float jumpVelocity = 20f;
+    [SerializeField] private float fallMultiplier = 2.5f;
+    [SerializeField] private float lowJumpMultiplier = 2f;
+    [SerializeField] private float dashDuration = 10f;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] LayerMask enemyLayers;
+    [SerializeField] private float attackPointRadius = 0.5f;
+    [Range(0, 1)] [SerializeField] private float crouchSpeed = .36f;          // Amount of maxSpeed applied to crouching movement. 1 = 100%
+    [Range(0, .3f)] [SerializeField] private float movementSmoothing = .05f;  // How much to smooth out the movement
+    [SerializeField] private bool airControl = false;                         // Whether or not a player can steer while jumping;
+    [SerializeField] private LayerMask whatIsGround;                          // A mask determining what is ground to the character
+    [SerializeField] private Transform groundCheck;                           // A position marking where to check if the player is grounded.
+    [SerializeField] private Transform ceilingCheck;                          // A position marking where to check for ceilings
+    [SerializeField] private Collider2D torsoCollider;                // A collider that will be disabled when crouching
+    [SerializeField] private Collider2D feetCollider;
 
-    const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-    private bool m_Grounded;            // Whether or not the player is grounded.
-    const float k_CeilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
-    private Rigidbody2D m_Rigidbody2D;
-    private Animator m_Animator;
-    private bool m_FacingRight = true;  // For determining which way the player is currently facing.
-    private Vector3 m_Velocity = Vector3.zero;
+    const float groundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+    private bool grounded;            // Whether or not the player is grounded.
+    const float ceilingRadius = .2f; // Radius of the overlap circle to determine if the player can stand up
+    private Rigidbody2D rb;
+    private Animator animator;
+    private bool facingRight = true;  // For determining which way the player is currently facing.
+    private Vector3 velocity = Vector3.zero;
+    private bool isDashing = false;
+    private float dashTimer = 0;
 
     [Header("Events")]
     [Space]
@@ -33,12 +41,12 @@ public class CharacterController2D : MonoBehaviour
     public class BoolEvent : UnityEvent<bool> { }
 
     public BoolEvent OnCrouchEvent;
-    private bool m_wasCrouching = false;
+    private bool wasCrouching = false;
 
     private void Awake()
     {
-        m_Rigidbody2D = GetComponent<Rigidbody2D>();
-        m_Animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         if (OnLandEvent == null)
             OnLandEvent = new UnityEvent();
@@ -49,135 +57,130 @@ public class CharacterController2D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool wasGrounded = m_Grounded;
-        m_Grounded = false;
-
+        bool wasGrounded = grounded;
+        grounded = false;
 
         // The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
         // This can be done using layers instead but Sample Assets will not overwrite your project settings.
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, 
+            groundedRadius, whatIsGround);
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].gameObject != gameObject)
             {
-                m_Grounded = true;
+                grounded = true;
                 if (!wasGrounded)
                     OnLandEvent.Invoke();
             }
         }
 
-        if(m_Rigidbody2D.velocity.y < 0)
+        if(rb.velocity.y < 0)
         {
-            m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (m_FallMultiplier - 1);
-            //m_Animator.SetBool("isJumping", false);
-            //m_Animator.SetBool("isFalling", true);
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1);
         }
-        else if (m_Rigidbody2D.velocity.y > 0 && !Input.GetButton("Jump"))
+        else if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
         {
-            m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (m_lowJumpMultiplier - 1);
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1);
         }
     }
 
 
     public void Move(float move, bool crouch, bool jump)
     {
-        if(m_Rigidbody2D.velocity.x <= move)
-        {
-            m_Animator.SetBool("isDashing", false);
-        }
-        // If crouching, check to see if the character can stand up
-        if (!crouch)
-        {
-            // If the character has a ceiling preventing them from standing up, keep them crouching
-            if (Physics2D.OverlapCircle(m_CeilingCheck.position, k_CeilingRadius, m_WhatIsGround))
-            {
-                crouch = true;
-            }
-        }
-
         //only control the player if grounded or airControl is turned on
-        if (m_Grounded || m_AirControl)
+        if (grounded || airControl)
         {
-            //m_Animator.SetBool("isFalling", false);
-
-            // If crouching
-            if (crouch)
-            {
-                if (!m_wasCrouching)
-                {
-                    m_wasCrouching = true;
-                    OnCrouchEvent.Invoke(true);
-                }
-
-                // Reduce the speed by the crouchSpeed multiplier
-                move *= m_CrouchSpeed;
-
-                // Disable one of the colliders when crouching
-                if (m_CrouchDisableCollider != null)
-                    m_CrouchDisableCollider.enabled = false;
-            }
-            else
-            {
-                // Enable the collider when not crouching
-                if (m_CrouchDisableCollider != null)
-                    m_CrouchDisableCollider.enabled = true;
-
-                if (m_wasCrouching)
-                {
-                    m_wasCrouching = false;
-                    OnCrouchEvent.Invoke(false);
-                }
-            }
-
             // Move the character by finding the target velocity
-            Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+            Vector3 targetVelocity = new Vector2(move, rb.velocity.y);
             // And then smoothing it out and applying it to the character
-            m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
-            m_Animator.SetFloat("horizontalSpeed", Mathf.Abs(move));
-            m_Animator.SetFloat("verticalSpeed", m_Rigidbody2D.velocity.y);
+            rb.velocity = Vector3.SmoothDamp(rb.velocity, 
+                targetVelocity, ref velocity, movementSmoothing);
+            animator.SetFloat("horizontalSpeed", Mathf.Abs(move));
+            animator.SetFloat("verticalSpeed", rb.velocity.y);
 
             // If the input is moving the player right and the player is facing left...
-            if (move > 0 && !m_FacingRight)
+            if (move > 0 && !facingRight)
             {
                 // ... flip the player.
                 Flip();
             }
             // Otherwise if the input is moving the player left and the player is facing right...
-            else if (move < 0 && m_FacingRight)
+            else if (move < 0 && facingRight)
             {
                 // ... flip the player.
                 Flip();
             }
         }
         // If the player should jump...
-        if (m_Grounded && jump)
+        if (grounded && jump)
         {
             // Add a vertical force to the player.
-            m_Grounded = false;
-            m_Rigidbody2D.velocity = Vector2.up * m_JumpVelocity;
-            //m_Animator.SetBool("isJumping", true);
+            grounded = false;
+            rb.velocity = Vector2.up * jumpVelocity;
         }
     }
 
     public void Attack()
     {
-        if(m_Grounded)
+        if(grounded)
         {
-            m_Animator.SetTrigger("attack");
+            animator.SetTrigger("attack");
         }
-        
     }
-    public void Dash(float move)
+
+    public void AttackHit()
     {
-        m_Animator.SetBool("isDashing", true);
-        m_Rigidbody2D.velocity = new Vector2(transform.localScale.x * m_DashSpeed, m_Rigidbody2D.velocity.y);
+        Collider2D[] hitEnemies = 
+        Physics2D.OverlapCircleAll(attackPoint.position, attackPointRadius, enemyLayers);
+
+        foreach(Collider2D enemy in hitEnemies)
+        {
+            enemy.GetComponent<EnemyController>().Die();
+        }
+    }
+
+    public void StartDash(float move)
+    {
+        StartCoroutine(Dash(move));       
+    }
+
+    
+    IEnumerator Dash(float move)
+    {
+        if(grounded)
+        {
+            dashTimer = 0;
+            float direction = transform.localScale.x;
+
+            animator.SetBool("isDashing", true);
+            torsoCollider.enabled = false;
+            feetCollider.enabled = false;
+
+            float currentY = transform.position.y;
+
+            while (dashTimer < dashDuration)
+            {
+                rb.velocity = new Vector2(direction * dashSpeed * Time.deltaTime,
+                    rb.velocity.y);
+
+                transform.position = new Vector2(transform.position.x, currentY);
+
+                dashTimer += Time.deltaTime;
+
+                yield return null;
+            }
+
+            animator.SetBool("isDashing", false);
+            torsoCollider.enabled = true;
+            feetCollider.enabled = true;
+        }
     }
 
 
     private void Flip()
     {
         // Switch the way the player is labelled as facing.
-        m_FacingRight = !m_FacingRight;
+        facingRight = !facingRight;
 
         // Multiply the player's x local scale by -1.
         Vector3 theScale = transform.localScale;
@@ -187,6 +190,12 @@ public class CharacterController2D : MonoBehaviour
 
     public float FetchMoveSpeed()
     {
-        return m_MoveSpeed;
+        return moveSpeed;
+    }
+
+    private void OnDrawGizmosSelected() 
+    {
+        Gizmos.color = Color.gray;
+        Gizmos.DrawWireSphere(attackPoint.position, attackPointRadius);
     }
 }

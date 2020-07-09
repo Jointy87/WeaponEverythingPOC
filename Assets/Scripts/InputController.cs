@@ -10,31 +10,26 @@ public class InputController : MonoBehaviour
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
+    bool haveControl = true;
 
     // Update is called once per frame
     void Update()
     {
-
-        horizontalMove = Input.GetAxisRaw("Horizontal") * controller.FetchMoveSpeed() * Time.fixedDeltaTime;
+        if(!haveControl) return;
+        
+        horizontalMove = Input.GetAxisRaw("Horizontal") * controller.FetchMoveSpeed() * 
+            Time.fixedDeltaTime;
 
         if (Input.GetButtonDown("Jump"))
         {
             jump = true;
         }
-
-        if (Input.GetButtonDown("Crouch"))
-        {
-            crouch = true;
-        }
-        else if (Input.GetButtonUp("Crouch"))
-        {
-            crouch = false;
-        }
-
     }
 
     void FixedUpdate()
     {
+        if(!haveControl) return;
+        
         // Move our character
         controller.Move(horizontalMove, crouch, jump);
         jump = false;
@@ -48,7 +43,12 @@ public class InputController : MonoBehaviour
         //Dash
         if(Input.GetButtonDown("Fire2"))
         {
-            controller.Dash(horizontalMove);
+            controller.StartDash(horizontalMove);
         }
+    }
+
+    public void HaveControl(bool value)
+    {
+        haveControl = value;
     }
 }
