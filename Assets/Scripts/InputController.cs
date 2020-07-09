@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
-
-    public CharacterController2D controller;
-
+    //Cache
+    CharacterMover mover;
+    CharacterCombatHandler fighter;
+    
+    //States
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
     bool haveControl = true;
+
+    private void Awake() 
+    {
+        mover = GetComponent<CharacterMover>();
+        fighter = GetComponent<CharacterCombatHandler>();
+    }
 
     // Update is called once per frame
     void Update()
     {
         if(!haveControl) return;
         
-        horizontalMove = Input.GetAxisRaw("Horizontal") * controller.FetchMoveSpeed() * 
+        horizontalMove = Input.GetAxisRaw("Horizontal") * mover.FetchMoveSpeed() * 
             Time.fixedDeltaTime;
 
         if (Input.GetButtonDown("Jump"))
@@ -31,19 +39,19 @@ public class InputController : MonoBehaviour
         if(!haveControl) return;
         
         // Move our character
-        controller.Move(horizontalMove, crouch, jump);
+        mover.Move(horizontalMove, crouch, jump);
         jump = false;
 
         //Attack
         if(Input.GetButtonDown("Fire1"))
         {
-            controller.Attack();
+            fighter.Attack();
         }
 
         //Dash
         if(Input.GetButtonDown("Fire2"))
         {
-            controller.StartDash(horizontalMove);
+            fighter.StartDash(horizontalMove);
         }
     }
 
