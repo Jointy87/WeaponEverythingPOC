@@ -17,6 +17,8 @@ public class PlayerFighter : MonoBehaviour
     Animator animator;
     Rigidbody2D rb;
     new CapsuleCollider2D collider;
+    WeaponStashSystem stash;
+    bool isAlive = true;
 
     //States
     float dashTimer = 0;
@@ -27,6 +29,7 @@ public class PlayerFighter : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
+        stash = FindObjectOfType<WeaponStashSystem>();
     }
 
     public void Attack()
@@ -56,7 +59,7 @@ public class PlayerFighter : MonoBehaviour
         }
 
         if(!hasHitEnemy) return; 
-        FindObjectOfType<WeaponStashSystem>().RemoveFromStash();
+        stash.RemoveFromStash();
     }
 
     public void StartDash(float move)
@@ -94,23 +97,35 @@ public class PlayerFighter : MonoBehaviour
         }
     }
 
-    public void StartPushBack()
+    public void GetHit(Transform enemyPos)
     {
-        StartCoroutine(PushBack());
+        if(stash.FetchStash() > 0)
+        {
+            stash.RemoveFromStash();
+            StartCoroutine(PushBack(enemyPos));
+        }
+        else
+        {
+            Die();
+        }
     }
 
-    IEnumerator PushBack()
+    IEnumerator PushBack(Transform enemyPos)
     {
+        float direction = 1;
+        if (transform.position.x < enemyPos.position.x)
+        {
+            direction = -1;
+        }
+
         pushBackTimer = 0;
-        float direction = transform.localScale.x;
-
         animator.SetTrigger("getHit");
-
         float currentY = transform.position.y;
 
         while (pushBackTimer < pushBackDuration)
         {
-            rb.velocity = new Vector2(-direction * pushBackSpeed * Time.deltaTime,
+            
+            rb.velocity = new Vector2(direction * pushBackSpeed * Time.deltaTime,
                 rb.velocity.y);
 
             transform.position = new Vector2(transform.position.x, currentY);
@@ -123,6 +138,13 @@ public class PlayerFighter : MonoBehaviour
         animator.SetTrigger("getHit");
     }
 
+    public void Die()
+    {
+        animator.SetTrigger("die");
+        GetComponent<InputController>().HaveControl(false);
+        isAlive = false;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.gray;
@@ -130,5 +152,10 @@ public class PlayerFighter : MonoBehaviour
         {
             Gizmos.DrawWireSphere(attackPoints[pointIndex].position, attackPointRadius[pointIndex]);
         }
+    }
+
+    public bool IsAlive()
+    {
+        return isAlive;
     }
 }

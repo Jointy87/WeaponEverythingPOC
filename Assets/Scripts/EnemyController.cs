@@ -36,28 +36,32 @@ public class EnemyController : MonoBehaviour
 	}
 
 	private void Update()
-	{
-		if (!isAlive) return;
+    {
+        if (!isAlive) return;
 
-		animator.SetFloat("horizontalSpeed", Mathf.Abs(rb.velocity.x));
+        animator.SetFloat("horizontalSpeed", Mathf.Abs(rb.velocity.x));
+        timeSinceLastAttack += Time.deltaTime;
 
-		timeSinceLastAttack += Time.deltaTime;
+        if (isAttacking) return;
 
-		if(isAttacking) return;
+        CanEngage();
 
-		if (canEngage)
-		{
-			EngageTarget(player);
-		}
-		else
-		{
-			ReturnToGuardPosition();
-		}
+        CheckFacingDirection();
+    }
 
-		CheckFacingDirection();
-	}
+    private void CanEngage()
+    {
+        if (canEngage && player.GetComponent<PlayerFighter>().IsAlive())
+        {
+            EngageTarget(player);
+        }
+        else
+        {
+            ReturnToGuardPosition();
+        }
+    }
 
-	public void EngageTarget(Transform target)
+    public void EngageTarget(Transform target)
 	{
 		float distanceToTarget = Vector2.Distance(transform.position, target.position);
 
@@ -152,9 +156,8 @@ public class EnemyController : MonoBehaviour
             attackPointRadius[pointIndex], playerLayer);
 
 			if(!hitPlayer) return;
-
-			hitPlayer.GetComponent<PlayerFighter>().StartPushBack();
-			FindObjectOfType<WeaponStashSystem>().RemoveFromStash();			
+				//Vector2 currentPos = new Vector2(transform.position.x, transform.position.y);
+			    hitPlayer.GetComponent<PlayerFighter>().GetHit(this.transform);					
 		}
 	}
 

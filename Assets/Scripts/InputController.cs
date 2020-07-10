@@ -23,7 +23,7 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!haveControl) return;
+        if(!haveControl || !fighter.IsAlive()) return;
         
         horizontalMove = Input.GetAxisRaw("Horizontal") * mover.FetchMoveSpeed() * 
             Time.fixedDeltaTime;
@@ -36,7 +36,7 @@ public class InputController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(!haveControl) return;
+        if(!haveControl || !fighter.IsAlive()) return;
         
         // Move our character
         mover.Move(horizontalMove, crouch, jump);

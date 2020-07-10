@@ -9,18 +9,23 @@ public class WeaponStashSystem : MonoBehaviour
     [SerializeField] GameObject[] swords;
 
     //States
-    int swordAmount;
+    int stashSize;
 
     void Start()
     {
-        swordAmount = 1;
+        stashSize = 1;
     }
 
     void Update()
     {
-        for(int sword = 0; sword <= swords.Length - 1; sword++)
+        DisplayWeapons();
+    }
+
+    private void DisplayWeapons()
+    {
+        for (int sword = 0; sword <= swords.Length - 1; sword++)
         {
-            if(sword < swordAmount)
+            if (sword < stashSize)
             {
                 swords[sword].SetActive(true);
             }
@@ -33,11 +38,20 @@ public class WeaponStashSystem : MonoBehaviour
 
     public void AddToStash()
     {
-        swordAmount++;
+        stashSize++;
     }
 
     public void RemoveFromStash()
     {
-        swordAmount--;
+        if(stashSize == 0)
+        {
+            FindObjectOfType<PlayerFighter>().Die();
+        }
+        stashSize--;
+    }
+
+    public int FetchStash()
+    {
+        return stashSize;
     }
 }
