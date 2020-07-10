@@ -5,8 +5,8 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
     //Cache
-    CharacterMover mover;
-    CharacterCombatHandler fighter;
+    PlayerMover mover;
+    PlayerFighter fighter;
     
     //States
     float horizontalMove = 0f;
@@ -16,8 +16,8 @@ public class InputController : MonoBehaviour
 
     private void Awake() 
     {
-        mover = GetComponent<CharacterMover>();
-        fighter = GetComponent<CharacterCombatHandler>();
+        mover = GetComponent<PlayerMover>();
+        fighter = GetComponent<PlayerFighter>();
     }
 
     // Update is called once per frame

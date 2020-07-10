@@ -1574,6 +1574,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2017774387151354123, guid: 24d00bd062041db41a243a32b31b0493,
+        type: 3}
+      propertyPath: attackPointRadius
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756447257650044911, guid: 24d00bd062041db41a243a32b31b0493,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.684
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756447257650044911, guid: 24d00bd062041db41a243a32b31b0493,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.431
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24d00bd062041db41a243a32b31b0493, type: 3}
 --- !u!1001 &3747601537962882429

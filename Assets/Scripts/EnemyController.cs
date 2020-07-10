@@ -157,4 +157,10 @@ public class EnemyController : MonoBehaviour
 	{
 		isAttacking = false;
 	}
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.gray;
+        Gizmos.DrawWireSphere(attackPoint.position, attackPointRadius);
+    }
 }

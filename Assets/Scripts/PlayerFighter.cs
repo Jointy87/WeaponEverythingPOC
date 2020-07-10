@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterCombatHandler : MonoBehaviour
+public class PlayerFighter : MonoBehaviour
 {
-	//Config parameters
-	[SerializeField] float dashSpeed = 750f;
-	[SerializeField] float dashDuration = .5f;
-	[SerializeField] Transform attackPoint;
-	[SerializeField] LayerMask enemyLayers;
-	[SerializeField] float attackPointRadius = 0.5f;
+    //Config parameters
+    [SerializeField] float dashSpeed = 750f;
+    [SerializeField] float dashDuration = .5f;
+    [SerializeField] Transform[] attackPoints;
+    [SerializeField] LayerMask enemyLayers;
+    [SerializeField] float[] attackPointRadius;
 
     //Cache
     Animator animator;
@@ -20,16 +20,16 @@ public class CharacterCombatHandler : MonoBehaviour
     bool isDashing = false;
     float dashTimer = 0;
 
-	private void Awake()
-	{
+    private void Awake()
+    {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
-	}
+    }
 
     public void Attack()
     {
-        if (GetComponent<CharacterMover>().FetchGrounded())
+        if (GetComponent<PlayerMover>().FetchGrounded())
         {
             animator.SetTrigger("attack");
         }
@@ -38,14 +38,21 @@ public class CharacterCombatHandler : MonoBehaviour
     // Called from animator
     public void AttackHit()
     {
-        Collider2D[] hitEnemies =
-        Physics2D.OverlapCircleAll(attackPoint.position, attackPointRadius, enemyLayers);
+        bool hasHitEnemy = false;
 
-        foreach (Collider2D enemy in hitEnemies)
+        foreach(Transform attackPoint in attackPoints)
         {
-            enemy.GetComponent<EnemyController>().Die();
+            Collider2D[] hitEnemies01 =
+            Physics2D.OverlapCircleAll(attackPoints[0].position, attackPointRadius[0], enemyLayers);
+
+            foreach (Collider2D enemy in hitEnemies01)
+            {
+                enemy.GetComponent<EnemyController>().Die();
+                hasHitEnemy = true;
+            }
         }
 
+        if(!hasHitEnemy) return; 
         FindObjectOfType<WeaponStashSystem>().RemoveFromStash();
     }
 
@@ -57,7 +64,7 @@ public class CharacterCombatHandler : MonoBehaviour
 
     IEnumerator Dash(float move)
     {
-        if (GetComponent<CharacterMover>().FetchGrounded())
+        if (GetComponent<PlayerMover>().FetchGrounded())
         {
             dashTimer = 0;
             float direction = transform.localScale.x;
@@ -81,6 +88,15 @@ public class CharacterCombatHandler : MonoBehaviour
 
             animator.SetBool("isDashing", false);
             collider.enabled = true;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.gray;
+        for(int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
+        {
+            Gizmos.DrawWireSphere(attackPoints[pointIndex].position, attackPointRadius[pointIndex]);
         }
     }
 }
