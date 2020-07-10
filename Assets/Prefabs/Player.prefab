@@ -214,7 +214,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 723331716959676796}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: fd12a7c8f467e9149b65c7f4a6f1ffe0, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 400
-  jumpVelocity: 6
+  jumpVelocity: 7
   fallMultiplier: 1.05
   lowJumpMultiplier: 1.05
   movementSmoothing: 0.05
@@ -287,7 +287,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashSpeed: 750
-  dashDuration: 0.5
+  dashDuration: 0.3
+  pushBackSpeed: 1000
+  pushBackDuration: 0.15
   attackPoints:
   - {fileID: 3756447257650044911}
   - {fileID: 5567346421398015264}

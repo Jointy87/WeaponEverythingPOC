@@ -7,6 +7,8 @@ public class PlayerFighter : MonoBehaviour
     //Config parameters
     [SerializeField] float dashSpeed = 750f;
     [SerializeField] float dashDuration = .5f;
+    [SerializeField] float pushBackSpeed = 750f;
+    [SerializeField] float pushBackDuration = .25f;
     [SerializeField] Transform[] attackPoints;
     [SerializeField] LayerMask enemyLayers;
     [SerializeField] float[] attackPointRadius;
@@ -17,8 +19,8 @@ public class PlayerFighter : MonoBehaviour
     new CapsuleCollider2D collider;
 
     //States
-    bool isDashing = false;
     float dashTimer = 0;
+    float pushBackTimer = 0;
 
     private void Awake()
     {
@@ -40,12 +42,13 @@ public class PlayerFighter : MonoBehaviour
     {
         bool hasHitEnemy = false;
 
-        foreach(Transform attackPoint in attackPoints)
+        for(int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
         {
-            Collider2D[] hitEnemies01 =
-            Physics2D.OverlapCircleAll(attackPoints[0].position, attackPointRadius[0], enemyLayers);
+            Collider2D[] hitEnemies =
+            Physics2D.OverlapCircleAll(attackPoints[pointIndex].position, 
+                attackPointRadius[pointIndex], enemyLayers);
 
-            foreach (Collider2D enemy in hitEnemies01)
+            foreach (Collider2D enemy in hitEnemies)
             {
                 enemy.GetComponent<EnemyController>().Die();
                 hasHitEnemy = true;
@@ -89,6 +92,35 @@ public class PlayerFighter : MonoBehaviour
             animator.SetBool("isDashing", false);
             collider.enabled = true;
         }
+    }
+
+    public void StartPushBack()
+    {
+        StartCoroutine(PushBack());
+    }
+
+    IEnumerator PushBack()
+    {
+        pushBackTimer = 0;
+        float direction = transform.localScale.x;
+
+        animator.SetTrigger("getHit");
+
+        float currentY = transform.position.y;
+
+        while (pushBackTimer < pushBackDuration)
+        {
+            rb.velocity = new Vector2(-direction * pushBackSpeed * Time.deltaTime,
+                rb.velocity.y);
+
+            transform.position = new Vector2(transform.position.x, currentY);
+
+            pushBackTimer += Time.deltaTime;
+
+            yield return null;
+        }
+
+        animator.SetTrigger("getHit");
     }
 
     private void OnDrawGizmos()

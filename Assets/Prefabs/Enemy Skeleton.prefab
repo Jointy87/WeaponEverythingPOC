@@ -188,11 +188,13 @@ MonoBehaviour:
   moveSpeed: 3
   attackRange: 1.75
   attackInterval: 1
-  attackPoint: {fileID: 9018830515805101562}
+  attackPoints:
+  - {fileID: 9018830515805101562}
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
-  attackPointRadius: 0.5
+  attackPointRadius:
+  - 0.65
   weaponPickup: {fileID: 1420253899358861232, guid: 624767c343ec92f458b34f7bcafda8d6,
     type: 3}
 --- !u!1 &6875383053739927350
@@ -219,7 +221,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6875383053739927350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.64, y: 0, z: 0}
+  m_LocalPosition: {x: 1.43, y: 0.18, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3747601538873141850}

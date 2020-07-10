@@ -8,9 +8,9 @@ public class EnemyController : MonoBehaviour
 	[SerializeField] float moveSpeed = 10f;
 	[SerializeField] float attackRange = .5f;
 	[SerializeField] float attackInterval = 1f;
-	[SerializeField] Transform attackPoint;
+	[SerializeField] Transform[] attackPoints;
 	[SerializeField] LayerMask playerLayer;
-	[SerializeField] float attackPointRadius;
+	[SerializeField] float[] attackPointRadius;
 	[SerializeField] GameObject weaponPickup;
 
 	// Cache
@@ -146,10 +146,16 @@ public class EnemyController : MonoBehaviour
 	// Called from animator
 	private void AttackHit()
 	{
-		Collider2D player = Physics2D.OverlapCircle(attackPoint.position, 
-			attackPointRadius, playerLayer);
+        for (int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
+        {
+            Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoints[pointIndex].position,
+            attackPointRadius[pointIndex], playerLayer);
 
-		//player hit ramifications
+			if(!hitPlayer) return;
+
+			hitPlayer.GetComponent<PlayerFighter>().StartPushBack();
+			FindObjectOfType<WeaponStashSystem>().RemoveFromStash();			
+		}
 	}
 
 	// Called from animator
@@ -161,6 +167,9 @@ public class EnemyController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.gray;
-        Gizmos.DrawWireSphere(attackPoint.position, attackPointRadius);
+        for (int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
+        {
+            Gizmos.DrawWireSphere(attackPoints[pointIndex].position, attackPointRadius[pointIndex]);
+        }
     }
 }
