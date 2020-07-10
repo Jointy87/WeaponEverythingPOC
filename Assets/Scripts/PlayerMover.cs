@@ -63,7 +63,7 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
-    public void Move(float move, bool crouch, bool jump)
+    public void Move(float move, bool jump)
     {
         if (grounded || airControl)
         {

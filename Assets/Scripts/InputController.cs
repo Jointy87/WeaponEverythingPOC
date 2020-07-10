@@ -7,51 +7,71 @@ public class InputController : MonoBehaviour
     //Cache
     PlayerMover mover;
     PlayerFighter fighter;
+    PlayerThrower thrower;
     
     //States
     float horizontalMove = 0f;
     bool jump = false;
     bool crouch = false;
     bool haveControl = true;
+    Vector2 aimDirection;
 
     private void Awake() 
     {
         mover = GetComponent<PlayerMover>();
         fighter = GetComponent<PlayerFighter>();
+        thrower = GetComponent<PlayerThrower>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(!haveControl || !fighter.IsAlive()) return;
-        
-        horizontalMove = Input.GetAxisRaw("Horizontal") * mover.FetchMoveSpeed() * 
+        if (!haveControl || !fighter.IsAlive()) return;
+
+        horizontalMove = Input.GetAxisRaw("Horizontal") * mover.FetchMoveSpeed() *
             Time.fixedDeltaTime;
 
-        if (Input.GetButtonDown("Jump"))
+        aimDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxis("Vertical"));
+
+        if (IsThrowing())
         {
-            jump = true;
+            thrower.Aim(aimDirection);
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                thrower.Throw(aimDirection);
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                jump = true;
+            }
+
+            mover.Move(horizontalMove, jump);
+            jump = false;
+
+            if (Input.GetButtonDown("Fire1"))
+            {
+                fighter.Attack();
+            }
+
+            if (Input.GetButtonDown("Fire2"))
+            {
+                fighter.StartDash(horizontalMove);
+            }
         }
     }
 
-    void FixedUpdate()
+    private bool IsThrowing()
     {
-        if(!haveControl || !fighter.IsAlive()) return;
-        
-        // Move our character
-        mover.Move(horizontalMove, crouch, jump);
-        jump = false;
-
-        //Attack
-        if(Input.GetButtonDown("Fire1"))
+        if (Input.GetAxisRaw("Triggers") > 0)
         {
-            fighter.Attack();
+            return true;
         }
-
-        //Dash
-        if(Input.GetButtonDown("Fire2"))
+        else
         {
-            fighter.StartDash(horizontalMove);
+            return false;
         }
     }
 
