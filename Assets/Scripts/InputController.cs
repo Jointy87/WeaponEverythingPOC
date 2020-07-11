@@ -32,7 +32,7 @@ public class InputController : MonoBehaviour
 
         aimDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxis("Vertical"));
 
-        if (IsThrowing())
+        if (mover.FetchGrounded() && IsThrowing())
         {
             thrower.Aim(aimDirection);
 
@@ -43,6 +43,8 @@ public class InputController : MonoBehaviour
         }
         else
         {
+            thrower.CancelAim();
+
             if (Input.GetButtonDown("Jump"))
             {
                 jump = true;

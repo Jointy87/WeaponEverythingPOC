@@ -34,7 +34,6 @@ public class PlayerMover : MonoBehaviour
     {
         CheckIfGrounded();
         AddGravityIfFalling();
-        print(rb.velocity.y);
     }
 
     private void CheckIfGrounded()

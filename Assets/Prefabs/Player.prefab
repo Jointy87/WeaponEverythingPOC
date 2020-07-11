@@ -315,9 +315,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e109bece15934848ad4b57fccbe8bf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponToThrow: {fileID: 1420253899358861232, guid: 624767c343ec92f458b34f7bcafda8d6,
+  weaponToThrow: {fileID: 8767259105992655012, guid: d07006241f7ec4840b5464740fc37203,
     type: 3}
-  throwSpeed: 5
+  throwSpeed: 2000
   throwOrigin: {fileID: 4016234558394468070}
   renderLineLength: 2
 --- !u!1 &2886324124229007352
