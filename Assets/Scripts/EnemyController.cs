@@ -141,6 +141,7 @@ public class EnemyController : MonoBehaviour
 	{
 		animator.SetTrigger("die");
 		GetComponent<CapsuleCollider2D>().enabled = false;
+		rb.velocity = new Vector2(0,0);
 		isAlive = false;
 
 		GameObject spawnedPickup =  

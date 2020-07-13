@@ -29,11 +29,11 @@ public class InputController : MonoBehaviour
 
         horizontalMove = Input.GetAxisRaw("Horizontal") * mover.FetchMoveSpeed() *
             Time.fixedDeltaTime;
-
-        aimDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxis("Vertical"));
-
+        
         if (mover.FetchGrounded() && IsThrowing())
         {
+			aimDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            
             thrower.Aim(aimDirection);
 
             if (Input.GetButtonDown("Fire1"))

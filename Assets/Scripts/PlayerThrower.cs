@@ -16,6 +16,8 @@ public class PlayerThrower : MonoBehaviour
     //States
     Vector3 originVector;
     Vector2 aimDirection;
+    Vector3 aimVector;
+    float aimAngle;
 
     private void Awake() 
     {
@@ -32,7 +34,7 @@ public class PlayerThrower : MonoBehaviour
             new Vector3(throwOrigin.position.x, throwOrigin.position.y, throwOrigin.position.z);
 
         lr.enabled = true;
-        Vector3 aimVector = new Vector3(aimDirection.x, aimDirection.y, 0);
+        aimVector = new Vector3(aimDirection.x, aimDirection.y, 0);
 
         lr.SetPosition(0, originVector);
         lr.SetPosition(1, originVector + aimVector * renderLineLength);
@@ -40,8 +42,12 @@ public class PlayerThrower : MonoBehaviour
 
     public void Throw(Vector2 aimDirection)
     {
-        GameObject projectile = Instantiate(weaponToThrow, originVector, Quaternion.identity);
+        float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+        
+        GameObject projectile = Instantiate(weaponToThrow, 
+            originVector, Quaternion.AngleAxis(aimAngle, Vector3.forward));
         projectile.GetComponent<Rigidbody2D>().velocity = aimDirection * throwSpeed * Time.deltaTime;
+        // TO DO: Ensure that speed of projectile is always the same, now matter how far thumbstick is pushed
     }
 
     public void CancelAim()
