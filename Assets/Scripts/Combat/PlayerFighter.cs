@@ -150,7 +150,7 @@ namespace WeaponEverything.Combat
 			isAlive = false;
 		}
 
-		private void OnDrawGizmos()
+		private void OnDrawGizmosSelected()
 		{
 			Gizmos.color = Color.gray;
 			for (int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)

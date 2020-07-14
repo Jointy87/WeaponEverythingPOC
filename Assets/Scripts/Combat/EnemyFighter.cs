@@ -108,7 +108,7 @@ namespace WeaponEverything.Combat
 				Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoints[pointIndex].position,
 				attackPointRadius[pointIndex], playerLayer);
 
-				if (!hitPlayer) return;
+				if (!hitPlayer) continue;
 
 				hitPlayer.GetComponent<PlayerFighter>().GetHit(this.transform);
 			}
@@ -125,7 +125,7 @@ namespace WeaponEverything.Combat
 			return isAlive;
 		}
 
-		private void OnDrawGizmos()
+		private void OnDrawGizmosSelected()
 		{
 			Gizmos.color = Color.gray;
 			for (int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
