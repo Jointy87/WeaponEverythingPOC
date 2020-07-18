@@ -16,6 +16,7 @@ MonoBehaviour:
   - roll
   - attack run
   - attack idle
+  - die
   _automaticImporting: 1
   _spritePixelsPerUnit: 32
   _targetObjectType: 0

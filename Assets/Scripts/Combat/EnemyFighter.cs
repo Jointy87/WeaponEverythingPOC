@@ -111,6 +111,7 @@ namespace WeaponEverything.Combat
 				if (!hitPlayer) continue;
 
 				hitPlayer.GetComponent<PlayerFighter>().GetHit(this.transform);
+				return;
 			}
 		}
 

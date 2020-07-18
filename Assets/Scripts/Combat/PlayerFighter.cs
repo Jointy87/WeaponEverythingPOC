@@ -94,7 +94,7 @@ namespace WeaponEverything.Combat
 			else
 			{
 				Die();
-				//weapon.Die();
+				weapon.SetAnimationTrigger("die");
 			}
 		}
 
@@ -127,21 +127,11 @@ namespace WeaponEverything.Combat
 			animator.SetTrigger("getHit");
 		}
 
-		//Called by animator
-		public void SetArmOriginX(float originX)
-		{
-			armOrigin.x = originX;
-		}
-		//Called by animator
-		public void SetArmOriginY(float originY)
-		{
-			armOrigin.y = originY;
-		}
-
 		public void Die()
 		{
 			animator.SetTrigger("die");
 			GetComponent<InputController>().HaveControl(false);
+			rb.velocity = new Vector2(0, 0);
 			isAlive = false;
 		}
 
