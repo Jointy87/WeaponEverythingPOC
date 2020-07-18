@@ -64,7 +64,7 @@ namespace WeaponEverything.Control
 
 				if (Input.GetButtonDown("Fire2"))
 				{
-					fighter.StartDash(horizontalMove);
+					fighter.StartRoll();
 				}
 			}
 		}

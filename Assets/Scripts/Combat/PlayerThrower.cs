@@ -49,6 +49,7 @@ namespace WeaponEverything.Combat
 			GameObject projectile = Instantiate(weaponToThrow,
 				originVector, Quaternion.AngleAxis(aimAngle, Vector3.forward));
 			projectile.GetComponent<Rigidbody2D>().velocity = aimDirection * throwSpeed * Time.deltaTime;
+			
 			// TO DO: Ensure that speed of projectile is always the same, now matter how far thumbstick is pushed
 		}
 

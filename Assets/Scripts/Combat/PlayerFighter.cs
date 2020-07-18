@@ -23,11 +23,14 @@ namespace WeaponEverything.Combat
 		Rigidbody2D rb;
 		new CapsuleCollider2D collider;
 		WeaponStashSystem stash;
-		bool isAlive = true;
+		WeaponHandler weapon;
+		
 
 		//States
 		float dashTimer = 0;
 		float pushBackTimer = 0;
+		bool isAlive = true;
+		Vector2 armOrigin;
 
 		private void Awake()
 		{
@@ -35,52 +38,33 @@ namespace WeaponEverything.Combat
 			rb = GetComponent<Rigidbody2D>();
 			collider = GetComponent<CapsuleCollider2D>();
 			stash = FindObjectOfType<WeaponStashSystem>();
+			weapon = GetComponentInChildren<WeaponHandler>();
 		}
 
 		public void Attack()
 		{
-			if (GetComponent<PlayerMover>().FetchGrounded())
-			{
+			//if (GetComponent<PlayerMover>().FetchGrounded())
+			//{
 				animator.SetTrigger("attack");
-			}
+				weapon.SetAnimationTrigger("attack");				
+			//}
 		}
 
-		// Called from animator
-		public void AttackHit()
+		public void StartRoll()
 		{
-			bool hasHitEnemy = false;
-
-			for (int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
-			{
-				Collider2D[] hitEnemies =
-				Physics2D.OverlapCircleAll(attackPoints[pointIndex].position,
-					attackPointRadius[pointIndex], enemyLayers);
-
-				foreach (Collider2D enemy in hitEnemies)
-				{
-					enemy.GetComponent<EnemyFighter>().Die();
-					hasHitEnemy = true;
-				}
-			}
-
-			if (!hasHitEnemy) return;
-			stash.RemoveFromStash();
-		}
-
-		public void StartDash(float move)
-		{
-			StartCoroutine(Dash(move));
+			StartCoroutine(Roll());
 		}
 
 
-		IEnumerator Dash(float move)
+		IEnumerator Roll()
 		{
 			if (GetComponent<PlayerMover>().FetchGrounded())
 			{
 				dashTimer = 0;
 				float direction = transform.localScale.x;
 
-				animator.SetBool("isDashing", true);
+				animator.SetTrigger("roll");
+				weapon.SetAnimationTrigger("roll");
 				collider.enabled = false;
 
 				float currentY = transform.position.y;
@@ -96,8 +80,6 @@ namespace WeaponEverything.Combat
 
 					yield return null;
 				}
-
-				animator.SetBool("isDashing", false);
 				collider.enabled = true;
 			}
 		}
@@ -112,6 +94,7 @@ namespace WeaponEverything.Combat
 			else
 			{
 				Die();
+				//weapon.Die();
 			}
 		}
 
@@ -125,6 +108,7 @@ namespace WeaponEverything.Combat
 
 			pushBackTimer = 0;
 			animator.SetTrigger("getHit");
+			weapon.SetAnimationTrigger("getHit");
 			float currentY = transform.position.y;
 
 			while (pushBackTimer < pushBackDuration)
@@ -143,20 +127,22 @@ namespace WeaponEverything.Combat
 			animator.SetTrigger("getHit");
 		}
 
+		//Called by animator
+		public void SetArmOriginX(float originX)
+		{
+			armOrigin.x = originX;
+		}
+		//Called by animator
+		public void SetArmOriginY(float originY)
+		{
+			armOrigin.y = originY;
+		}
+
 		public void Die()
 		{
 			animator.SetTrigger("die");
 			GetComponent<InputController>().HaveControl(false);
 			isAlive = false;
-		}
-
-		private void OnDrawGizmosSelected()
-		{
-			Gizmos.color = Color.gray;
-			for (int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
-			{
-				Gizmos.DrawWireSphere(attackPoints[pointIndex].position, attackPointRadius[pointIndex]);
-			}
 		}
 
 		public bool IsAlive()

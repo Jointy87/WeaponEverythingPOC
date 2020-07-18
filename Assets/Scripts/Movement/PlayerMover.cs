@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WeaponEverything.Combat;
 
 namespace WeaponEverything.Movement
 {
@@ -19,6 +20,7 @@ namespace WeaponEverything.Movement
 		//Cache
 		Rigidbody2D rb;
 		Animator animator;
+		WeaponHandler weapon;
 
 		//States
 		const float groundedRadius = .2f;
@@ -30,6 +32,7 @@ namespace WeaponEverything.Movement
 		{
 			rb = GetComponent<Rigidbody2D>();
 			animator = GetComponent<Animator>();
+			weapon = GetComponentInChildren<WeaponHandler>();
 		}
 
 		private void FixedUpdate()
@@ -75,7 +78,9 @@ namespace WeaponEverything.Movement
 					targetVelocity, ref velocity, movementSmoothing);
 
 				animator.SetFloat("horizontalSpeed", Mathf.Abs(move));
+				weapon.SetAnimatorFloat("horizontalSpeed", Mathf.Abs(move));
 				animator.SetFloat("verticalSpeed", rb.velocity.y);
+				weapon.SetAnimatorFloat("verticalSpeed", rb.velocity.y);
 
 				if (move > 0 && !facingRight)
 				{
