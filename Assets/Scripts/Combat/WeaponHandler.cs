@@ -15,6 +15,10 @@ namespace WeaponEverything.Combat
 		//Cache
 		Animator animator;
 
+		//States
+		int startValue = 0;
+		int condition = 0;
+
 		private void Awake()
 		{
 			animator = GetComponent<Animator>();
@@ -31,11 +35,27 @@ namespace WeaponEverything.Combat
         }
 
 		// Called from animator
-		public void AttackHit()
+		public void AttackHit(int value)
 		{
+			if(value == 0)
+			{
+				startValue = 0;
+				condition = attackPoints.Length - 1;
+			}
+			else if (value == 1)
+			{
+				startValue = 0;
+				condition = 3;
+			}
+			else if (value == 2)
+			{
+				startValue = 4;
+				condition = 7;
+			}
+
 			bool hasHitEnemy = false;
 
-			for (int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
+			for (int pointIndex = startValue; pointIndex <= condition; pointIndex++)
 			{
 				Collider2D[] hitEnemies =
 				Physics2D.OverlapCircleAll(attackPoints[pointIndex].position,

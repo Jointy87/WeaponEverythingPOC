@@ -43,11 +43,8 @@ namespace WeaponEverything.Combat
 
 		public void Attack()
 		{
-			//if (GetComponent<PlayerMover>().FetchGrounded())
-			//{
-				animator.SetTrigger("attack");
-				weapon.SetAnimationTrigger("attack");				
-			//}
+			animator.SetTrigger("attack");
+			weapon.SetAnimationTrigger("attack");				
 		}
 
 		public void StartRoll()
