@@ -31,6 +31,7 @@ namespace WeaponEverything.Combat
 		float pushBackTimer = 0;
 		bool isAlive = true;
 		Vector2 armOrigin;
+		bool isRolling = false;
 
 		private void Awake()
 		{
@@ -59,10 +60,10 @@ namespace WeaponEverything.Combat
 			{
 				dashTimer = 0;
 				float direction = transform.localScale.x;
+				isRolling = true;
 
 				animator.SetTrigger("roll");
 				weapon.SetAnimationTrigger("roll");
-				collider.enabled = false;
 
 				float currentY = transform.position.y;
 
@@ -77,7 +78,7 @@ namespace WeaponEverything.Combat
 
 					yield return null;
 				}
-				collider.enabled = true;
+				isRolling = false;
 			}
 		}
 
@@ -135,6 +136,11 @@ namespace WeaponEverything.Combat
 		public bool IsAlive()
 		{
 			return isAlive;
+		}
+
+		public bool IsRolling()
+		{
+			return isRolling;
 		}
 	}
 }

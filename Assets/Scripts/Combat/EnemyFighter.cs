@@ -18,7 +18,9 @@ namespace WeaponEverything.Combat
 		//Cache
 		Animator animator;
 		Transform player;
+		PlayerFighter playerFighter;
 		EnemyMover mover;
+		Collider2D myCollider;
 
 		// States
 		bool isAlive = true;
@@ -34,6 +36,8 @@ namespace WeaponEverything.Combat
 			player = GameObject.FindGameObjectWithTag("Player").transform;
 			guardPosition = transform.position;
 			mover = GetComponent<EnemyMover>();
+			playerFighter = player.GetComponent<PlayerFighter>();
+			myCollider = GetComponent<Collider2D>();
 		}
 
 		private void Update()
@@ -41,6 +45,8 @@ namespace WeaponEverything.Combat
 			if (!isAlive) return;
 
 			timeSinceLastAttack += Time.deltaTime;
+
+			CheckForPlayerRoll();
 
 			if (isAttacking) return;
 
@@ -84,6 +90,18 @@ namespace WeaponEverything.Combat
 			mover.MoveToTarget(guardPosition);
 		}
 
+		private void CheckForPlayerRoll()
+		{
+			if (playerFighter.IsRolling())
+			{
+				myCollider.enabled = false;
+			}
+			else
+			{
+				myCollider.enabled = true;
+			}
+		}
+
 		public void CanEngage(bool value)
 		{
 			canEngage = value;
@@ -108,7 +126,7 @@ namespace WeaponEverything.Combat
 				Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoints[pointIndex].position,
 				attackPointRadius[pointIndex], playerLayer);
 
-				if (!hitPlayer) continue;
+				if (!hitPlayer || playerFighter.IsRolling()) continue;
 
 				hitPlayer.GetComponent<PlayerFighter>().GetHit(this.transform);
 				return;
