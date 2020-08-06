@@ -50,7 +50,7 @@ namespace WeaponEverything.Combat
 
 			if (isAttacking) return;
 
-			CanEngage();
+			CanEngage();	
 		}
 
 		private void CanEngage()
