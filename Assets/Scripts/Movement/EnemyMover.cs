@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WeaponEverything.Combat;
 
 namespace WeaponEverything.Movement
 {
@@ -12,22 +11,21 @@ namespace WeaponEverything.Movement
 
 		//States
 		bool facingRight = true;
+		bool isAlive = true;
 
 		// Cache
 		Animator animator;
 		Rigidbody2D rb;
-		EnemyFighter fighter;
 
 		private void Awake()
 		{
 			animator = GetComponent<Animator>();
 			rb = GetComponent<Rigidbody2D>();
-			fighter = GetComponent<EnemyFighter>();
 		}
 
 		private void Update()
 		{
-			if (!fighter.IsAlive()) return;
+			if (isAlive) return;
 
 			animator.SetFloat("horizontalSpeed", Mathf.Abs(rb.velocity.x));
 
@@ -74,6 +72,11 @@ namespace WeaponEverything.Movement
 		public void SetVelocity(float xVelocity, float yVelocity)
 		{
 			rb.velocity = new Vector2(xVelocity, yVelocity);
+		}
+
+		public void SetIsAlive(bool value)
+		{
+			isAlive = value;
 		}
 	}
 }

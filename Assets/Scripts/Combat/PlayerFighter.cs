@@ -24,7 +24,6 @@ namespace WeaponEverything.Combat
 		//States
 		float dashTimer = 0;
 		float pushBackTimer = 0;
-		bool isAlive = true;
 		Vector2 armOrigin;
 		bool isRolling = false;
 
@@ -81,14 +80,10 @@ namespace WeaponEverything.Combat
 		{
 			if (stash.FetchStash() > 0)
 			{
-				stash.RemoveFromStash();
 				StartCoroutine(PushBack(enemyPos));
 			}
-			else
-			{
-				Die();
-				weapon.SetAnimationTrigger("die");
-			}
+
+			stash.RemoveFromStash();
 		}
 
 		IEnumerator PushBack(Transform enemyPos)
@@ -116,20 +111,13 @@ namespace WeaponEverything.Combat
 
 				yield return null;
 			}
-
-			animator.SetTrigger("getHit");
 		}
 
 		public void Die()
 		{
 			animator.SetTrigger("die");
+			weapon.SetAnimationTrigger("die");
 			rb.velocity = new Vector2(0, 0);
-			isAlive = false;
-		}
-
-		public bool IsAlive()
-		{
-			return isAlive;
 		}
 
 		public bool IsRolling()

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WeaponEverything.Core;
 using WeaponEverything.Movement;
 
 namespace WeaponEverything.Combat
@@ -21,6 +22,7 @@ namespace WeaponEverything.Combat
 		PlayerFighter playerFighter;
 		EnemyMover mover;
 		Collider2D myCollider;
+		WeaponStashSystem stashSystem;
 
 		// States
 		bool isAlive = true;
@@ -38,6 +40,7 @@ namespace WeaponEverything.Combat
 			mover = GetComponent<EnemyMover>();
 			playerFighter = player.GetComponent<PlayerFighter>();
 			myCollider = GetComponent<Collider2D>();
+			stashSystem = FindObjectOfType<WeaponStashSystem>();
 		}
 
 		private void Update()
@@ -55,7 +58,7 @@ namespace WeaponEverything.Combat
 
 		private void CanEngage()
 		{
-			if (canEngage && player.GetComponent<PlayerFighter>().IsAlive())
+			if (canEngage && stashSystem.IsAlive())
 			{
 				EngageTarget(player);
 			}
@@ -102,7 +105,7 @@ namespace WeaponEverything.Combat
 			}
 		}
 
-		public void CanEngage(bool value)
+		public void SetCanEngage(bool value)
 		{
 			canEngage = value;
 		}
@@ -113,6 +116,7 @@ namespace WeaponEverything.Combat
 			GetComponent<CapsuleCollider2D>().enabled = false;
 			mover.SetVelocity(0, 0);
 			isAlive = false;
+			mover.SetIsAlive(false);
 
 			GameObject spawnedPickup =
 				Instantiate(weaponPickup, transform.position, Quaternion.identity);
@@ -137,11 +141,6 @@ namespace WeaponEverything.Combat
 		private void IsAttacking()
 		{
 			isAttacking = false;
-		}
-
-		public bool IsAlive()
-		{
-			return isAlive;
 		}
 
 		private void OnDrawGizmosSelected()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WeaponEverything.Core;
+using WeaponEverything.Movement;
 
 namespace WeaponEverything.Combat
 {
@@ -10,6 +11,7 @@ namespace WeaponEverything.Combat
 	{
 		//Config parameters
 		[SerializeField] WeaponsInfo weaponsInfo;
+		[SerializeField] Rigidbody2D parentRigidbody;
 
 		//Cache
 		Animator animator;
@@ -28,6 +30,11 @@ namespace WeaponEverything.Combat
 		private void Start() 			
 		{
 			SetCurrentWeapon(WeaponType.Unarmed);
+		}
+
+		private void OnEnable() 
+		{
+			GetComponentInParent<PlayerMover>().onAnimation += WeaponAnimations;
 		}
 
 		private void Update() 
@@ -99,6 +106,12 @@ namespace WeaponEverything.Combat
 			}
 			if (!hasHitEnemy) return;
 			FindObjectOfType<WeaponStashSystem>().RemoveFromStash();
+		}
+
+		private void WeaponAnimations(float move)
+		{
+			animator.SetFloat("horizontalSpeed", Mathf.Abs(move));
+			animator.SetFloat("verticalSpeed", parentRigidbody.velocity.y);
 		}
 
 		public WeaponType FetchCurrentWeapon()

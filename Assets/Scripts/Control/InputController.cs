@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WeaponEverything.Combat;
+using WeaponEverything.Core;
 using WeaponEverything.Movement;
 
 namespace WeaponEverything.Control
@@ -13,6 +14,7 @@ namespace WeaponEverything.Control
 		PlayerFighter fighter;
 		PlayerThrower thrower;
 		WeaponHandler weaponHandler;
+		WeaponStashSystem stashSystem;
 
 		//States
 		float horizontalMove = 0f;
@@ -28,11 +30,12 @@ namespace WeaponEverything.Control
 			fighter = GetComponent<PlayerFighter>();
 			thrower = GetComponent<PlayerThrower>();
 			weaponHandler = GetComponentInChildren<WeaponHandler>();
+			stashSystem = FindObjectOfType<WeaponStashSystem>();
 		}
 
 		void Update()
 		{
-			if (!fighter.IsAlive()) return;
+			if (!stashSystem.IsAlive()) return;
 
 			horizontalMove = Input.GetAxisRaw("Horizontal") * mover.FetchMoveSpeed() *
 				Time.fixedDeltaTime;
@@ -56,7 +59,6 @@ namespace WeaponEverything.Control
 				{
 					jump = true;
 				}
-
 				mover.Move(horizontalMove, jump);
 				jump = false;
 

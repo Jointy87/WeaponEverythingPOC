@@ -13,6 +13,7 @@ namespace WeaponEverything.Core
 
 		//States
 		int stashSize;
+		bool isAlive = true;
 
 		void Start()
 		{
@@ -48,6 +49,7 @@ namespace WeaponEverything.Core
 		{
 			if (stashSize == 0)
 			{
+				isAlive = false;
 				FindObjectOfType<PlayerFighter>().Die();
 			}
 			stashSize--;
@@ -56,6 +58,11 @@ namespace WeaponEverything.Core
 		public int FetchStash()
 		{
 			return stashSize;
+		}
+
+		public bool IsAlive()
+		{
+			return isAlive;
 		}
 	}
 }
