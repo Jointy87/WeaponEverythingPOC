@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using WeaponEverything.Combat;
 
 namespace WeaponEverything.Core
 {
@@ -14,6 +12,9 @@ namespace WeaponEverything.Core
 		//States
 		int stashSize;
 		bool isAlive = true;
+
+		public delegate void PlayerDieDelegate();
+		public event PlayerDieDelegate onPlayerDeath;
 
 		void Start()
 		{
@@ -50,7 +51,7 @@ namespace WeaponEverything.Core
 			if (stashSize == 0)
 			{
 				isAlive = false;
-				FindObjectOfType<PlayerFighter>().Die();
+				onPlayerDeath();
 			}
 			stashSize--;
 		}

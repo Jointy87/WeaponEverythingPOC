@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1420253899358861234}
   - component: {fileID: 2809262799315545888}
   - component: {fileID: 2225621364426965662}
-  - component: {fileID: -2490439403031880132}
+  - component: {fileID: 6947694889553004909}
   m_Layer: 0
   m_Name: Sword Pickup
   m_TagString: Untagged
@@ -120,7 +120,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.19999999
---- !u!114 &-2490439403031880132
+--- !u!114 &6947694889553004909
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1420253899358861232}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82abc0f846e7c0a40bb9caa09934eb14, type: 3}
+  m_Script: {fileID: 11500000, guid: 622fd6ffc1e47114685250098009f11a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weaponPickupType: 1

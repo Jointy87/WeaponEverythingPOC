@@ -658,6 +658,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1225600009}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!50 &1298770498 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 723331716959676679, guid: 24d00bd062041db41a243a32b31b0493,
+    type: 3}
+  m_PrefabInstance: {fileID: 723331717128661703}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1500092454
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,6 +1403,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8567346186299646328, guid: 24d00bd062041db41a243a32b31b0493,
+        type: 3}
+      propertyPath: parentRigidbody
+      value: 
+      objectReference: {fileID: 1298770498}
     m_RemovedComponents:
     - {fileID: 217652895011777293, guid: 24d00bd062041db41a243a32b31b0493, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 24d00bd062041db41a243a32b31b0493, type: 3}

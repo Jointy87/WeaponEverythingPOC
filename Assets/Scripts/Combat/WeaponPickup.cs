@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WeaponEverything.Combat;
+using WeaponEverything.Core;
 
-namespace WeaponEverything.Core
+namespace WeaponEverything.Combat
 {
 	public class WeaponPickup : MonoBehaviour
 	{

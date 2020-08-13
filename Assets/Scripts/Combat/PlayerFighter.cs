@@ -36,6 +36,11 @@ namespace WeaponEverything.Combat
 			weapon = GetComponentInChildren<WeaponHandler>();
 		}
 
+		private void OnEnable() 
+		{
+			stash.onPlayerDeath += Die;
+		}
+
 		public void Attack()
 		{
 			animator.SetTrigger("attack");
@@ -113,7 +118,7 @@ namespace WeaponEverything.Combat
 			}
 		}
 
-		public void Die()
+		private void Die()
 		{
 			animator.SetTrigger("die");
 			weapon.SetAnimationTrigger("die");
@@ -123,6 +128,11 @@ namespace WeaponEverything.Combat
 		public bool IsRolling()
 		{
 			return isRolling;
+		}
+
+		private void OnDisable()
+		{
+			stash.onPlayerDeath += Die;
 		}
 	}
 }
