@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using WeaponEverything.Core;
@@ -8,9 +9,7 @@ namespace WeaponEverything.Combat
 	public class WeaponHandler : MonoBehaviour
 	{
 		//Config parameters
-		[SerializeField] Transform[] attackPoints;
-		[SerializeField] float[] attackPointRadius;
-		[SerializeField] LayerMask enemyLayers;
+		[SerializeField] WeaponsInfo weaponsInfo;
 
 		//Cache
 		Animator animator;
@@ -18,13 +17,41 @@ namespace WeaponEverything.Combat
 		//States
 		int startValue = 0;
 		int condition = 0;
+		WeaponType currentWeapon;
+		WeaponAttackPoints attackPoints = null;
 
 		private void Awake()
 		{
 			animator = GetComponent<Animator>();
 		}
 
-        public void SetAnimationTrigger(string triggerString)
+		private void Start() 			
+		{
+			SetCurrentWeapon(WeaponType.Unarmed);
+		}
+
+		private void Update() 
+		{
+			print(currentWeapon);	
+		}
+
+		public void SwitchWeapons()
+		{
+			if(currentWeapon == WeaponType.Unarmed) return;
+
+			if(currentWeapon == WeaponType.Spear) SetCurrentWeapon(WeaponType.Sword);
+			else if (currentWeapon == WeaponType.Sword) SetCurrentWeapon(WeaponType.Spear);
+		}
+
+		public void SetCurrentWeapon(WeaponType weapon)
+		{
+			currentWeapon = weapon;
+			Destroy(attackPoints);
+			animator.runtimeAnimatorController = weaponsInfo.FetchWeaponAnimator(weapon);
+			attackPoints = Instantiate(weaponsInfo.FetchAttackPoints(weapon), transform);
+		}
+
+		public void SetAnimationTrigger(string triggerString)
         {
             animator.SetTrigger(triggerString);
         }
@@ -34,20 +61,20 @@ namespace WeaponEverything.Combat
             animator.SetFloat(name, value);
         }
 
-		// Called from animator
+		//Called from animator
 		public void AttackHit(int value)
 		{
 			if(value == 0)
 			{
 				startValue = 0;
-				condition = attackPoints.Length - 1;
+				condition = attackPoints.FetchAttackPoints().Length - 1;
 			}
-			else if (value == 1)
+			else if (value == 1) //first unarmedhit
 			{
 				startValue = 0;
 				condition = 3;
 			}
-			else if (value == 2)
+			else if (value == 2) //second unarmedhit
 			{
 				startValue = 4;
 				condition = 7;
@@ -57,9 +84,12 @@ namespace WeaponEverything.Combat
 
 			for (int pointIndex = startValue; pointIndex <= condition; pointIndex++)
 			{
+				Transform[] points = attackPoints.FetchAttackPoints();
+				float[] pointRadius = attackPoints.FetchAttackPointRadius();
+
 				Collider2D[] hitEnemies =
-				Physics2D.OverlapCircleAll(attackPoints[pointIndex].position,
-					attackPointRadius[pointIndex], enemyLayers);
+				Physics2D.OverlapCircleAll(points[pointIndex].position,
+					pointRadius[pointIndex], weaponsInfo.FetchEnemyLayer(currentWeapon));
 
 				foreach (Collider2D enemy in hitEnemies)
 				{
@@ -67,18 +97,13 @@ namespace WeaponEverything.Combat
 					hasHitEnemy = true;
 				}
 			}
-
 			if (!hasHitEnemy) return;
 			FindObjectOfType<WeaponStashSystem>().RemoveFromStash();
 		}
 
-		private void OnDrawGizmos()
+		public WeaponType FetchCurrentWeapon()
 		{
-			Gizmos.color = Color.gray;
-			for (int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
-			{
-				Gizmos.DrawWireSphere(attackPoints[pointIndex].position, attackPointRadius[pointIndex]);
-			}
+			return currentWeapon;
 		}
 	}
 }

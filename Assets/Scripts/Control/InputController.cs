@@ -12,6 +12,7 @@ namespace WeaponEverything.Control
 		PlayerMover mover;
 		PlayerFighter fighter;
 		PlayerThrower thrower;
+		WeaponHandler weaponHandler;
 
 		//States
 		float horizontalMove = 0f;
@@ -19,12 +20,14 @@ namespace WeaponEverything.Control
 		bool crouch = false;
 		bool haveControl = true;
 		Vector2 aimDirection;
+		bool weaponsSwitched = false;
 
 		private void Awake()
 		{
 			mover = GetComponent<PlayerMover>();
 			fighter = GetComponent<PlayerFighter>();
 			thrower = GetComponent<PlayerThrower>();
+			weaponHandler = GetComponentInChildren<WeaponHandler>();
 		}
 
 		void Update()
@@ -66,6 +69,14 @@ namespace WeaponEverything.Control
 				{
 					fighter.StartRoll();
 				}
+
+				if(Input.GetAxisRaw("Pad Vertical") > .1)
+				{
+					if(weaponsSwitched) return;
+					weaponHandler.SwitchWeapons();
+					weaponsSwitched = true;
+				} 
+				else weaponsSwitched = false;
 			}
 		}
 

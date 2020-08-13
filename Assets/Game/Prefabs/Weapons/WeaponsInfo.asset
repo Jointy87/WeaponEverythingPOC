@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 741f446f0bcd1c64285e0a45986d9266, type: 3}
+  m_Name: WeaponsInfo
+  m_EditorClassIdentifier: 
+  weapons:
+  - weaponType: 0
+    weaponStats:
+      damagePerHit: 5
+      attackPoints: {fileID: 4608315646466633581, guid: 49448eec0b587094b9cf99b1ddd60c8a,
+        type: 3}
+      enemyLayers:
+        serializedVersion: 2
+        m_Bits: 512
+      animatorController: {fileID: 22100000, guid: 4950ce54ffa2b2b4c93f0ee0750a697e,
+        type: 2}
+  - weaponType: 1
+    weaponStats:
+      damagePerHit: 20
+      attackPoints: {fileID: 7247626838192130144, guid: b2070d319c57c034696018a82731edc2,
+        type: 3}
+      enemyLayers:
+        serializedVersion: 2
+        m_Bits: 512
+      animatorController: {fileID: 22100000, guid: 5a518dcb73ec5b34ea017941aa05d8c4,
+        type: 2}
+  - weaponType: 2
+    weaponStats:
+      damagePerHit: 15
+      attackPoints: {fileID: -4377353732872849829, guid: 26800854feba34347a27768deea8b9fe,
+        type: 3}
+      enemyLayers:
+        serializedVersion: 2
+        m_Bits: 512
+      animatorController: {fileID: 22100000, guid: bb462369ca9dd70479ec2c543277c88b,
+        type: 2}

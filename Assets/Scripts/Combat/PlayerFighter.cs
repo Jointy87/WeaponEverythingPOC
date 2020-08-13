@@ -14,9 +14,6 @@ namespace WeaponEverything.Combat
 		[SerializeField] float dashDuration = .5f;
 		[SerializeField] float pushBackSpeed = 750f;
 		[SerializeField] float pushBackDuration = .25f;
-		[SerializeField] Transform[] attackPoints;
-		[SerializeField] LayerMask enemyLayers;
-		[SerializeField] float[] attackPointRadius;
 
 		//Cache
 		Animator animator;
