@@ -37,11 +37,6 @@ namespace WeaponEverything.Combat
 			SetCurrentWeapon(WeaponType.Unarmed);
 		}
 
-		private void Update() 
-		{
-			print(currentWeapon);	
-		}
-
 		public void SwitchWeapons()
 		{
 			if(currentWeapon == WeaponType.Unarmed) return;
