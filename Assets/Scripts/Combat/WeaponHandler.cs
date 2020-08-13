@@ -27,14 +27,14 @@ namespace WeaponEverything.Combat
 			animator = GetComponent<Animator>();
 		}
 
+		private void OnEnable()
+		{
+			GetComponentInParent<PlayerMover>().onAnimation += WeaponAnimations;
+		}
+
 		private void Start() 			
 		{
 			SetCurrentWeapon(WeaponType.Unarmed);
-		}
-
-		private void OnEnable() 
-		{
-			GetComponentInParent<PlayerMover>().onAnimation += WeaponAnimations;
 		}
 
 		private void Update() 
