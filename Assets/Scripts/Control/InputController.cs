@@ -32,7 +32,7 @@ namespace WeaponEverything.Control
 
 		void Update()
 		{
-			if (!haveControl || !fighter.IsAlive()) return;
+			if (!fighter.IsAlive()) return;
 
 			horizontalMove = Input.GetAxisRaw("Horizontal") * mover.FetchMoveSpeed() *
 				Time.fixedDeltaTime;
@@ -90,11 +90,6 @@ namespace WeaponEverything.Control
 			{
 				return false;
 			}
-		}
-
-		public void HaveControl(bool value)
-		{
-			haveControl = value;
 		}
 	}
 }

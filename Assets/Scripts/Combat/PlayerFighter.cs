@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WeaponEverything.Control;
 using WeaponEverything.Core;
 using WeaponEverything.Movement;
 
@@ -22,7 +21,6 @@ namespace WeaponEverything.Combat
 		WeaponStashSystem stash;
 		WeaponHandler weapon;
 		
-
 		//States
 		float dashTimer = 0;
 		float pushBackTimer = 0;
@@ -125,7 +123,6 @@ namespace WeaponEverything.Combat
 		public void Die()
 		{
 			animator.SetTrigger("die");
-			GetComponent<InputController>().HaveControl(false);
 			rb.velocity = new Vector2(0, 0);
 			isAlive = false;
 		}
