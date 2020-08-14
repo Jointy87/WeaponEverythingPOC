@@ -389,6 +389,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponsInfo: {fileID: 11400000, guid: 03fe831e1ee6cd14e92ea639951a1e37, type: 2}
+  parentRigidbody: {fileID: 723331716959676679}
+  decayTime: 5
 --- !u!1 &7488675884497681748
 GameObject:
   m_ObjectHideFlags: 0

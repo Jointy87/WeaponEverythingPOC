@@ -10,21 +10,26 @@ namespace WeaponEverything.Combat
 	public class WeaponHandler : MonoBehaviour
 	{
 		//Config parameters
-		[SerializeField] WeaponsInfo weaponsInfo;
-		[SerializeField] Rigidbody2D parentRigidbody;
+		[SerializeField] WeaponsInfo weaponsInfo = null;
+		[SerializeField] Rigidbody2D parentRigidbody = null;
+		[SerializeField] float decayTime = 5f;
 
 		//Cache
 		Animator animator;
+		WeaponStashSystem stash;
 
 		//States
 		int startValue = 0;
 		int condition = 0;
 		WeaponType currentWeapon;
 		WeaponAttackPoints attackPoints = null;
+		bool decayTimerActive = false;
+		float decayTimer = Mathf.Infinity;
 
 		private void Awake()
 		{
 			animator = GetComponent<Animator>();
+			stash = FindObjectOfType<WeaponStashSystem>();
 		}
 
 		private void OnEnable()
@@ -37,12 +42,29 @@ namespace WeaponEverything.Combat
 			SetCurrentWeapon(WeaponType.Unarmed);
 		}
 
-		public void SwitchWeapons()
+		private void Update()
 		{
-			if(currentWeapon == WeaponType.Unarmed) return;
+			UpdateDecayTimer();
+		}
 
-			if(currentWeapon == WeaponType.Spear) SetCurrentWeapon(WeaponType.Sword);
-			else if (currentWeapon == WeaponType.Sword) SetCurrentWeapon(WeaponType.Spear);
+		private void UpdateDecayTimer()
+		{
+			decayTimer += Time.deltaTime;
+			if (decayTimer > decayTime && decayTimerActive)
+			{
+				decayTimerActive = false;
+				stash.RemoveFromStash();
+				if(stash.FetchStash() == 0) SetCurrentWeapon(WeaponType.Unarmed);
+			}
+		}
+
+		public void SwitchWeapons() //TO DO: needs to be if stash = 0. And need actual way to scroll through weapons
+		{
+			if(currentWeapon == (WeaponType)0)
+			{
+				SetCurrentWeapon((WeaponType)Enum.GetValues(typeof(WeaponType)).Length - 1);
+			}
+			else SetCurrentWeapon((WeaponType)currentWeapon - 1);
 		}
 
 		public void SetCurrentWeapon(WeaponType weapon)
@@ -66,7 +88,7 @@ namespace WeaponEverything.Combat
 		//Called from animator
 		public void AttackHit(int value)
 		{
-			if(value == 0)
+			if(value == 0) //sword or spear hit
 			{
 				startValue = 0;
 				condition = attackPoints.FetchAttackPoints().Length - 1;
@@ -82,8 +104,6 @@ namespace WeaponEverything.Combat
 				condition = 7;
 			}
 
-			bool hasHitEnemy = false;
-
 			for (int pointIndex = startValue; pointIndex <= condition; pointIndex++)
 			{
 				Transform[] points = attackPoints.FetchAttackPoints();
@@ -95,12 +115,15 @@ namespace WeaponEverything.Combat
 
 				foreach (Collider2D enemy in hitEnemies)
 				{
-					enemy.GetComponent<EnemyFighter>().Die();
-					hasHitEnemy = true;
+					enemy.GetComponent<EnemyFighter>().Die(); //TO DO: Remove this and make health component
+
+					if(decayTimerActive == false && stash.FetchStash() > 0 && currentWeapon != WeaponType.Unarmed)
+					{
+						decayTimerActive = true;
+						decayTimer = 0;
+					}
 				}
 			}
-			if (!hasHitEnemy) return;
-			FindObjectOfType<WeaponStashSystem>().RemoveFromStash();
 		}
 
 		private void WeaponAnimations(float move)
