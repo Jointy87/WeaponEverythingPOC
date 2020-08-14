@@ -52,41 +52,6 @@ namespace WeaponEverything.Combat
 			CheckWeaponFlashState();
 		}
 
-		private void CheckWeaponFlashState()
-		{
-			if(flashed) render.color = Color.red;
-			else render.color = Color.white;
-		}
-
-		private void UpdateDecayTimer()
-		{
-			if(!decayTimerActive) return;
-
-			float interval = minFlashInterval + decayTimer / decayTime * (maxFlashInterval - minFlashInterval);
-			decayTimer -= Time.deltaTime;
-			flashed = Mathf.PingPong(Time.time, interval) > (interval / 2f);
-			
-			if (decayTimer <= 0)
-			{
-				decayTimer = 0;
-				decayTimerActive = false;
-				flashed = false;
-				stash.RemoveFromStash();
-				if(stash.FetchStash() == 0) SetCurrentWeapon(WeaponType.Unarmed);
-			}
-		}
-
-		public void SwitchWeapons() 
-		{
-			if(stash.FetchStash() == 0) return; 
-
-			if(currentWeapon == (WeaponType)Enum.GetValues(typeof(WeaponType)).Length - 1)
-			{
-				SetCurrentWeapon((WeaponType)0);
-			}
-			else SetCurrentWeapon((WeaponType)currentWeapon + 1);
-		}
-
 		public void SetCurrentWeapon(WeaponType weapon)
 		{
 			currentWeapon = weapon;
@@ -95,20 +60,21 @@ namespace WeaponEverything.Combat
 			attackPoints = Instantiate(weaponsInfo.FetchAttackPoints(weapon), transform);
 		}
 
-		public void SetAnimationTrigger(string triggerString)
-        {
-            animator.SetTrigger(triggerString);
-        }
+		public void SwitchWeapons()
+		{
+			if (stash.FetchStash() == 0) return;
 
-        public void SetAnimatorFloat(string name, float value)
-        {
-            animator.SetFloat(name, value);
-        }
+			if (currentWeapon == (WeaponType)Enum.GetValues(typeof(WeaponType)).Length - 1)
+			{
+				SetCurrentWeapon((WeaponType)0);
+			}
+			else SetCurrentWeapon((WeaponType)currentWeapon + 1);
+		}
 
 		//Called from animator
 		public void AttackHit(int value)
 		{
-			if(value == 0) //sword or spear hit
+			if (value == 0) //sword or spear hit
 			{
 				startValue = 0;
 				condition = attackPoints.FetchAttackPoints().Length - 1;
@@ -137,7 +103,7 @@ namespace WeaponEverything.Combat
 				{
 					enemy.GetComponent<EnemyFighter>().Die(); //TO DO: Remove this and make health component
 
-					if(decayTimerActive == false && stash.FetchStash() > 0 && currentWeapon != WeaponType.Unarmed)
+					if (decayTimerActive == false && stash.FetchStash() > 0 && currentWeapon != WeaponType.Unarmed)
 					{
 						decayTimerActive = true;
 						decayTimer = decayTime;
@@ -146,7 +112,41 @@ namespace WeaponEverything.Combat
 			}
 		}
 
-		private void WeaponAnimations(float move)
+		private void UpdateDecayTimer()
+		{
+			if (!decayTimerActive) return;
+
+			float interval = minFlashInterval + decayTimer / decayTime * (maxFlashInterval - minFlashInterval);
+			decayTimer -= Time.deltaTime;
+			flashed = Mathf.PingPong(Time.time, interval) > (interval / 2f);
+
+			if (decayTimer <= 0)
+			{
+				decayTimer = 0;
+				decayTimerActive = false;
+				flashed = false;
+				stash.RemoveFromStash();
+				if (stash.FetchStash() == 0) SetCurrentWeapon(WeaponType.Unarmed);
+			}
+		}
+
+		private void CheckWeaponFlashState()
+		{
+			if(flashed) render.color = Color.red;
+			else render.color = Color.white;
+		}
+
+		public void SetAnimationTrigger(string triggerString)
+        {
+            animator.SetTrigger(triggerString);
+        }
+
+        public void SetAnimatorFloat(string name, float value)
+        {
+            animator.SetFloat(name, value);
+        }
+
+		private void WeaponAnimations(float move) //Used in delegate
 		{
 			animator.SetFloat("horizontalSpeed", Mathf.Abs(move));
 			animator.SetFloat("verticalSpeed", parentRigidbody.velocity.y);
@@ -155,6 +155,11 @@ namespace WeaponEverything.Combat
 		public WeaponType FetchCurrentWeapon()
 		{
 			return currentWeapon;
+		}
+
+		private void OnDisable()
+		{
+			GetComponentInParent<PlayerMover>().onAnimation -= WeaponAnimations;
 		}
 	}
 }
