@@ -58,13 +58,15 @@ namespace WeaponEverything.Combat
 			}
 		}
 
-		public void SwitchWeapons() //TO DO: needs to be if stash = 0. And need actual way to scroll through weapons
+		public void SwitchWeapons() 
 		{
-			if(currentWeapon == (WeaponType)0)
+			if(stash.FetchStash() == 0) return; 
+			
+			if(currentWeapon == (WeaponType)Enum.GetValues(typeof(WeaponType)).Length - 1)
 			{
-				SetCurrentWeapon((WeaponType)Enum.GetValues(typeof(WeaponType)).Length - 1);
+				SetCurrentWeapon((WeaponType)0);
 			}
-			else SetCurrentWeapon((WeaponType)currentWeapon - 1);
+			else SetCurrentWeapon((WeaponType)currentWeapon + 1);
 		}
 
 		public void SetCurrentWeapon(WeaponType weapon)
