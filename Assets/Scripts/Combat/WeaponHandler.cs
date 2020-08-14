@@ -13,10 +13,12 @@ namespace WeaponEverything.Combat
 		[SerializeField] WeaponsInfo weaponsInfo = null;
 		[SerializeField] Rigidbody2D parentRigidbody = null;
 		[SerializeField] float decayTime = 5f;
+		[SerializeField] float minFlashInterval = .1f, maxFlashInterval = 1f;
 
 		//Cache
 		Animator animator;
 		WeaponStashSystem stash;
+		SpriteRenderer render;
 
 		//States
 		int startValue = 0;
@@ -24,12 +26,14 @@ namespace WeaponEverything.Combat
 		WeaponType currentWeapon;
 		WeaponAttackPoints attackPoints = null;
 		bool decayTimerActive = false;
-		float decayTimer = Mathf.Infinity;
+		float decayTimer = 0;
+		bool flashed = false;
 
 		private void Awake()
 		{
 			animator = GetComponent<Animator>();
 			stash = FindObjectOfType<WeaponStashSystem>();
+			render = GetComponent<SpriteRenderer>();
 		}
 
 		private void OnEnable()
@@ -45,14 +49,28 @@ namespace WeaponEverything.Combat
 		private void Update()
 		{
 			UpdateDecayTimer();
+			CheckWeaponFlashState();
+		}
+
+		private void CheckWeaponFlashState()
+		{
+			if(flashed) render.color = Color.red;
+			else render.color = Color.white;
 		}
 
 		private void UpdateDecayTimer()
 		{
-			decayTimer += Time.deltaTime;
-			if (decayTimer > decayTime && decayTimerActive)
+			if(!decayTimerActive) return;
+
+			float interval = minFlashInterval + decayTimer / decayTime * (maxFlashInterval - minFlashInterval);
+			decayTimer -= Time.deltaTime;
+			flashed = Mathf.PingPong(Time.time, interval) > (interval / 2f);
+			
+			if (decayTimer <= 0)
 			{
+				decayTimer = 0;
 				decayTimerActive = false;
+				flashed = false;
 				stash.RemoveFromStash();
 				if(stash.FetchStash() == 0) SetCurrentWeapon(WeaponType.Unarmed);
 			}
@@ -61,7 +79,7 @@ namespace WeaponEverything.Combat
 		public void SwitchWeapons() 
 		{
 			if(stash.FetchStash() == 0) return; 
-			
+
 			if(currentWeapon == (WeaponType)Enum.GetValues(typeof(WeaponType)).Length - 1)
 			{
 				SetCurrentWeapon((WeaponType)0);
@@ -122,7 +140,7 @@ namespace WeaponEverything.Combat
 					if(decayTimerActive == false && stash.FetchStash() > 0 && currentWeapon != WeaponType.Unarmed)
 					{
 						decayTimerActive = true;
-						decayTimer = 0;
+						decayTimer = decayTime;
 					}
 				}
 			}
