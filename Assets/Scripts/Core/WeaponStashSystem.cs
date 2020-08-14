@@ -10,7 +10,7 @@ namespace WeaponEverything.Core
 		[SerializeField] GameObject[] swords;
 
 		//States
-		int stashSize;
+		int stashSize = 0;
 		bool isAlive = true;
 
 		public delegate void PlayerDieDelegate();

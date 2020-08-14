@@ -118,8 +118,8 @@ namespace WeaponEverything.Combat
 			isAlive = false;
 			mover.SetIsAlive(false);
 
-			GameObject spawnedPickup =
-				Instantiate(weaponPickup, transform.position, Quaternion.identity);
+			//GameObject spawnedPickup =
+				//Instantiate(weaponPickup, transform.position, Quaternion.identity);
 		}
 
 		// Called from animator
