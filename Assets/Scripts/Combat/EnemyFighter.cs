@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WeaponEverything.Core;
 using WeaponEverything.Movement;
+using WeaponEverything.Attributes;
 
 namespace WeaponEverything.Combat
 {
@@ -25,7 +26,6 @@ namespace WeaponEverything.Combat
 		WeaponStashSystem stashSystem;
 
 		// States
-		bool isAlive = true;
 		bool canAttack = true;
 		bool canEngage = false;
 		float timeSinceLastAttack = Mathf.Infinity;
@@ -45,7 +45,7 @@ namespace WeaponEverything.Combat
 
 		private void Update()
 		{
-			if (!isAlive) return;
+			if (!GetComponent<EnemyHealth>().FetchAlive()) return;
 
 			timeSinceLastAttack += Time.deltaTime;
 
@@ -108,18 +108,6 @@ namespace WeaponEverything.Combat
 		public void SetCanEngage(bool value)
 		{
 			canEngage = value;
-		}
-
-		public void Die()
-		{
-			animator.SetTrigger("die");
-			GetComponent<CapsuleCollider2D>().enabled = false;
-			mover.SetVelocity(0, 0);
-			isAlive = false;
-			mover.SetIsAlive(false);
-
-			//GameObject spawnedPickup =
-				//Instantiate(weaponPickup, transform.position, Quaternion.identity);
 		}
 
 		// Called from animator

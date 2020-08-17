@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WeaponEverything.Attributes;
 using WeaponEverything.Core;
 
 namespace WeaponEverything.Combat
@@ -19,11 +20,11 @@ namespace WeaponEverything.Combat
 			Destroy(gameObject, 10f);
 		}
 
-		private void OnTriggerEnter2D(Collider2D other)
+		private void OnTriggerEnter2D(Collider2D other) 
 		{
 			if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
 			{
-				other.GetComponent<EnemyFighter>().Die();
+				other.GetComponent<EnemyHealth>().Die();	//TO DO: Make projectiles do dmg instead of kill
 				FindObjectOfType<WeaponStashSystem>().RemoveFromStash();
 				Destroy(gameObject);
 			}

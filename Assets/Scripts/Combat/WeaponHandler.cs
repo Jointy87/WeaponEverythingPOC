@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WeaponEverything.Attributes;
 using WeaponEverything.Core;
 using WeaponEverything.Movement;
 
@@ -92,6 +93,8 @@ namespace WeaponEverything.Combat
 				condition = 7;
 			}
 
+			bool hasHit = false;
+
 			for (int pointIndex = startValue; pointIndex <= condition; pointIndex++)
 			{
 				Transform[] points = attackPoints.FetchAttackPoints();
@@ -102,9 +105,13 @@ namespace WeaponEverything.Combat
 					pointRadius[pointIndex], weaponsInfo.FetchEnemyLayer(currentWeapon));
 
 				foreach (Collider2D enemy in hitEnemies)
-				{
-					enemy.GetComponent<EnemyFighter>().Die(); //TO DO: Remove this and make health component
-
+				{	
+					if(!hasHit)
+					{
+						enemy.GetComponent<EnemyHealth>().SubstractHealth(weaponsInfo.FetchWeaponDamagePerHit(currentWeapon));
+						hasHit = true;
+					}
+					
 					if (decayTimerActive == false && stash.FetchStash() > 0 && currentWeapon != WeaponType.Unarmed)
 					{
 						decayTimerActive = true;
