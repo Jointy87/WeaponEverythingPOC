@@ -116,6 +116,120 @@ TextureImporter:
   - first:
       213: 2413349288401816115
     second: Player Sword_attack idle_9
+  - first:
+      213: 7910259055767150660
+    second: Player Sword 0
+  - first:
+      213: 710452283934079431
+    second: Player Sword 1
+  - first:
+      213: 5461191152783866352
+    second: Player Sword 2
+  - first:
+      213: 1407100071525446780
+    second: Player Sword 3
+  - first:
+      213: 613806598838649309
+    second: Player Sword 4
+  - first:
+      213: 5243661817463623977
+    second: Player Sword 5
+  - first:
+      213: 7020858244812900910
+    second: Player Sword 6
+  - first:
+      213: -6753387195795446120
+    second: Player Sword 7
+  - first:
+      213: -6285065869257029388
+    second: Player Sword 8
+  - first:
+      213: 3967545972123938595
+    second: Player Sword 9
+  - first:
+      213: -7180104234208117918
+    second: Player Sword 10
+  - first:
+      213: -8165574349354011722
+    second: Player Sword 11
+  - first:
+      213: -7224726388261062288
+    second: Player Sword 12
+  - first:
+      213: -7950737726312938870
+    second: Player Sword 13
+  - first:
+      213: -1480425875147195286
+    second: Player Sword 14
+  - first:
+      213: -6217416506905254993
+    second: Player Sword 15
+  - first:
+      213: -3427812030393614238
+    second: Player Sword 16
+  - first:
+      213: 4878132139437572837
+    second: Player Sword 17
+  - first:
+      213: 4572986906429435148
+    second: Player Sword 18
+  - first:
+      213: 4228043003709057811
+    second: Player Sword 19
+  - first:
+      213: -398321044710700624
+    second: Player Sword 20
+  - first:
+      213: -9171821474035648493
+    second: Player Sword 21
+  - first:
+      213: -1554349041661873869
+    second: Player Sword 22
+  - first:
+      213: 100565335223865170
+    second: Player Sword 23
+  - first:
+      213: -3396636040979872484
+    second: Player Sword 24
+  - first:
+      213: 1400404677072016905
+    second: Player Sword 25
+  - first:
+      213: -9024814058058255501
+    second: Player Sword 26
+  - first:
+      213: -1692707490512333237
+    second: Player Sword 27
+  - first:
+      213: -7511063528456353846
+    second: Player Sword 28
+  - first:
+      213: 1835681231119510780
+    second: Player Sword 29
+  - first:
+      213: 482265456847224554
+    second: Player Sword 30
+  - first:
+      213: 7253498684312835673
+    second: Player Sword 31
+  - first:
+      213: 8949255016271905631
+    second: Player Sword 32
+  - first:
+      213: -8049927471791469413
+    second: Player Sword 33
+  - first:
+      213: -5291999509093464469
+    second: Player Sword 34
+  - first:
+      213: 6847952337007409534
+    second: Player Sword 35
+  - first:
+      213: 3879931418751079540
+    second: Player Sword 36
+  - first:
+      213: 3549058614641106201
+    second: Player Sword 37
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -188,7 +302,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player Sword_idle_0
+      name: Player Sword 0
       rect:
         serializedVersion: 2
         x: 0
@@ -203,13 +317,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -7963745159506140630
+      internalID: 7910259055767150660
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_idle_1
+      name: Player Sword 1
       rect:
         serializedVersion: 2
         x: 0
@@ -224,13 +338,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 8020925640046625817
+      internalID: 710452283934079431
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_idle_2
+      name: Player Sword 2
       rect:
         serializedVersion: 2
         x: 96
@@ -245,13 +359,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -2939159844887699788
+      internalID: 5461191152783866352
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_idle_3
+      name: Player Sword 3
       rect:
         serializedVersion: 2
         x: 192
@@ -266,13 +380,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -3755802532350853798
+      internalID: 1407100071525446780
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_0
+      name: Player Sword 4
       rect:
         serializedVersion: 2
         x: 288
@@ -287,13 +401,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -9092645107208382816
+      internalID: 613806598838649309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_1
+      name: Player Sword 5
       rect:
         serializedVersion: 2
         x: 384
@@ -308,13 +422,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 7712556181458375938
+      internalID: 5243661817463623977
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_2
+      name: Player Sword 6
       rect:
         serializedVersion: 2
         x: 480
@@ -329,13 +443,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 7329437950924556694
+      internalID: 7020858244812900910
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_3
+      name: Player Sword 7
       rect:
         serializedVersion: 2
         x: 0
@@ -350,13 +464,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -698444938506671552
+      internalID: -6753387195795446120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_4
+      name: Player Sword 8
       rect:
         serializedVersion: 2
         x: 96
@@ -371,13 +485,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -8014506809566986385
+      internalID: -6285065869257029388
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_5
+      name: Player Sword 9
       rect:
         serializedVersion: 2
         x: 288
@@ -392,13 +506,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 8241820909707792784
+      internalID: 3967545972123938595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_6
+      name: Player Sword 10
       rect:
         serializedVersion: 2
         x: 384
@@ -413,13 +527,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 4472103102258750684
+      internalID: -7180104234208117918
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_7
+      name: Player Sword 11
       rect:
         serializedVersion: 2
         x: 480
@@ -434,13 +548,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -2316077769716335121
+      internalID: -8165574349354011722
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_8
+      name: Player Sword 12
       rect:
         serializedVersion: 2
         x: 0
@@ -455,13 +569,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -7723918680454742630
+      internalID: -7224726388261062288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_run_9
+      name: Player Sword 13
       rect:
         serializedVersion: 2
         x: 96
@@ -476,13 +590,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -8973694095315367734
+      internalID: -7950737726312938870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_get hit_0
+      name: Player Sword 14
       rect:
         serializedVersion: 2
         x: 192
@@ -497,13 +611,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -7882792969079277331
+      internalID: -1480425875147195286
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_get hit_1
+      name: Player Sword 15
       rect:
         serializedVersion: 2
         x: 288
@@ -518,13 +632,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 3222335672529642290
+      internalID: -6217416506905254993
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_jump_0
+      name: Player Sword 16
       rect:
         serializedVersion: 2
         x: 384
@@ -539,13 +653,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 8106354292079593290
+      internalID: -3427812030393614238
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_fall_0
+      name: Player Sword 17
       rect:
         serializedVersion: 2
         x: 480
@@ -560,13 +674,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -1626678857786202632
+      internalID: 4878132139437572837
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_0
+      name: Player Sword 18
       rect:
         serializedVersion: 2
         x: 0
@@ -581,13 +695,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -6957333780468446646
+      internalID: 4572986906429435148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_1
+      name: Player Sword 19
       rect:
         serializedVersion: 2
         x: 96
@@ -602,13 +716,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 8779010922467892706
+      internalID: 4228043003709057811
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_2
+      name: Player Sword 20
       rect:
         serializedVersion: 2
         x: 192
@@ -623,13 +737,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 3899248852353300077
+      internalID: -398321044710700624
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_3
+      name: Player Sword 21
       rect:
         serializedVersion: 2
         x: 288
@@ -644,13 +758,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 3489450276828914921
+      internalID: -9171821474035648493
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_4
+      name: Player Sword 22
       rect:
         serializedVersion: 2
         x: 384
@@ -665,13 +779,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -4346112927420138134
+      internalID: -1554349041661873869
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_5
+      name: Player Sword 23
       rect:
         serializedVersion: 2
         x: 480
@@ -686,13 +800,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -7323838106580284847
+      internalID: 100565335223865170
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_6
+      name: Player Sword 24
       rect:
         serializedVersion: 2
         x: 0
@@ -707,13 +821,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -4737087885199899334
+      internalID: -3396636040979872484
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_7
+      name: Player Sword 25
       rect:
         serializedVersion: 2
         x: 96
@@ -728,13 +842,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -6140033973317493776
+      internalID: 1400404677072016905
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_8
+      name: Player Sword 26
       rect:
         serializedVersion: 2
         x: 96
@@ -749,13 +863,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -2682224199807858286
+      internalID: -9024814058058255501
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack run_9
+      name: Player Sword 27
       rect:
         serializedVersion: 2
         x: 96
@@ -770,13 +884,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 102338867893032973
+      internalID: -1692707490512333237
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_0
+      name: Player Sword 28
       rect:
         serializedVersion: 2
         x: 192
@@ -791,13 +905,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -6848381638770223020
+      internalID: -7511063528456353846
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_1
+      name: Player Sword 29
       rect:
         serializedVersion: 2
         x: 288
@@ -812,13 +926,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -7411644394896709931
+      internalID: 1835681231119510780
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_2
+      name: Player Sword 30
       rect:
         serializedVersion: 2
         x: 384
@@ -833,13 +947,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 1823591594965823659
+      internalID: 482265456847224554
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_3
+      name: Player Sword 31
       rect:
         serializedVersion: 2
         x: 480
@@ -854,13 +968,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -6145622499779975180
+      internalID: 7253498684312835673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_4
+      name: Player Sword 32
       rect:
         serializedVersion: 2
         x: 0
@@ -875,13 +989,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -2737910336080141663
+      internalID: 8949255016271905631
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_5
+      name: Player Sword 33
       rect:
         serializedVersion: 2
         x: 96
@@ -896,13 +1010,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 2804265526340979186
+      internalID: -8049927471791469413
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_6
+      name: Player Sword 34
       rect:
         serializedVersion: 2
         x: 192
@@ -917,13 +1031,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 5351565980316253176
+      internalID: -5291999509093464469
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_7
+      name: Player Sword 35
       rect:
         serializedVersion: 2
         x: 192
@@ -938,13 +1052,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -3144325423152061485
+      internalID: 6847952337007409534
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_8
+      name: Player Sword 36
       rect:
         serializedVersion: 2
         x: 192
@@ -959,13 +1073,13 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: -6449541453510273001
+      internalID: 3879931418751079540
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Sword_attack idle_9
+      name: Player Sword 37
       rect:
         serializedVersion: 2
         x: 192
@@ -980,7 +1094,7 @@ TextureImporter:
       tessellationDetail: -1
       bones: []
       spriteID: 
-      internalID: 2413349288401816115
+      internalID: 3549058614641106201
       vertices: []
       indices: 
       edges: []

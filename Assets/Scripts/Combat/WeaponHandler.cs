@@ -58,6 +58,8 @@ namespace WeaponEverything.Combat
 			Destroy(attackPoints);
 			animator.runtimeAnimatorController = weaponsInfo.FetchWeaponAnimator(weapon);
 			attackPoints = Instantiate(weaponsInfo.FetchAttackPoints(weapon), transform);
+			if(!weaponsInfo.FetchWeaponMaterial(currentWeapon)) return;
+			render.material = weaponsInfo.FetchWeaponMaterial(currentWeapon);
 		}
 
 		public void SwitchWeapons()
@@ -132,8 +134,8 @@ namespace WeaponEverything.Combat
 
 		private void CheckWeaponFlashState()
 		{
-			if(flashed) render.color = Color.red;
-			else render.color = Color.white;
+			if(flashed) render.material.SetFloat("_Float", 1);
+			else render.material.SetFloat("_Float", 0);
 		}
 
 		public void SetAnimationTrigger(string triggerString)

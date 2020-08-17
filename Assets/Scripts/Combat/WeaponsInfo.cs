@@ -23,6 +23,7 @@ namespace WeaponEverything.Combat
 			public WeaponAttackPoints attackPoints;
 			public LayerMask enemyLayers;
 			public AnimatorOverrideController animatorController;
+			public Material weaponMaterial;
 		}
 
 		Dictionary<WeaponType, WeaponStats> weaponLookUpTable = null;
@@ -48,6 +49,12 @@ namespace WeaponEverything.Combat
 		{
 			BuildLookup();
 			return weaponLookUpTable[type].enemyLayers;
+		}
+
+		public Material FetchWeaponMaterial(WeaponType type)
+		{
+			BuildLookup();
+			return weaponLookUpTable[type].weaponMaterial;
 		}
 
 		private void BuildLookup()

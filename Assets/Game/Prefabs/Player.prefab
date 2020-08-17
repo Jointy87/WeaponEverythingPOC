@@ -345,7 +345,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -391,6 +391,8 @@ MonoBehaviour:
   weaponsInfo: {fileID: 11400000, guid: 03fe831e1ee6cd14e92ea639951a1e37, type: 2}
   parentRigidbody: {fileID: 723331716959676679}
   decayTime: 5
+  minFlashInterval: 0.1
+  maxFlashInterval: 1
 --- !u!1 &7488675884497681748
 GameObject:
   m_ObjectHideFlags: 0
