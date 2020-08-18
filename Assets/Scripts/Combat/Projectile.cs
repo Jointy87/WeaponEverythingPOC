@@ -25,7 +25,7 @@ namespace WeaponEverything.Combat
 			if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
 			{
 				other.GetComponent<EnemyHealth>().Die();	//TO DO: Make projectiles do dmg instead of kill
-				FindObjectOfType<WeaponStashSystem>().RemoveFromStash();
+				FindObjectOfType<WeaponStashSystem>().RemoveCharge();
 				Destroy(gameObject);
 			}
 			else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))

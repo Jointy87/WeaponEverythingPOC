@@ -83,12 +83,14 @@ namespace WeaponEverything.Combat
 
 		public void GetHit(Transform enemyPos)
 		{
-			if (stash.FetchStash() > 0)
+			if (stash.FetchChargeAmount() > 0)
 			{
 				StartCoroutine(PushBack(enemyPos));
 			}
 
-			stash.RemoveFromStash();
+			stash.RemoveCharge();
+
+			if(stash.FetchChargeAmount() == 0) weapon.SetCurrentWeapon(WeaponType.Unarmed);
 		}
 
 		IEnumerator PushBack(Transform enemyPos)

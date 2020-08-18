@@ -12,6 +12,7 @@ namespace WeaponEverything.Attributes
 		[SerializeField] float maxHealthPoints;
 		[SerializeField] Canvas healthBarCanvas;
 		[SerializeField] Image healthBar;
+		[SerializeField] GameObject chargeDrop;
 
 		//States
 		float healthPoints;
@@ -59,8 +60,8 @@ namespace WeaponEverything.Attributes
 			isAlive = false;
 			GetComponent<EnemyMover>().SetIsAlive(false);
 
-			//GameObject spawnedPickup =
-			//Instantiate(weaponPickup, transform.position, Quaternion.identity);
+			GameObject spawnedPickup =
+				Instantiate(chargeDrop, transform.position, Quaternion.identity);
 		}
 
 		public bool FetchAlive()

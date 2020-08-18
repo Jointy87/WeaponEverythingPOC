@@ -419,8 +419,6 @@ MonoBehaviour:
   - 0.65
   - 0.2
   - 0.4
-  weaponPickup: {fileID: 1420253899358861232, guid: 624767c343ec92f458b34f7bcafda8d6,
-    type: 3}
 --- !u!114 &5023318833799211306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,6 +434,8 @@ MonoBehaviour:
   maxHealthPoints: 50
   healthBarCanvas: {fileID: 5159760179612141055}
   healthBar: {fileID: 4447278588694543305}
+  chargeDrop: {fileID: 1420253899358861232, guid: 624767c343ec92f458b34f7bcafda8d6,
+    type: 3}
 --- !u!1 &4519658872937440368
 GameObject:
   m_ObjectHideFlags: 0

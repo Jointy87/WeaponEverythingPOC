@@ -8,20 +8,13 @@ namespace WeaponEverything.Combat
 	public class WeaponPickup : MonoBehaviour
 	{
 		//Config parameters
-		[SerializeField] WeaponType weaponPickupType;
+		[SerializeField] float chargeAmount;
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			if (other.tag == "Player")
 			{
-				FindObjectOfType<WeaponStashSystem>().AddToStash();
-
-				WeaponHandler handler = other.gameObject.GetComponentInChildren<WeaponHandler>();
-				
-				if(handler.FetchCurrentWeapon() == WeaponType.Unarmed)
-				{
-					handler.SetCurrentWeapon(weaponPickupType);
-				}
+				FindObjectOfType<WeaponStashSystem>().AddToFill(chargeAmount);
 				 
 				Destroy(gameObject);
 			}

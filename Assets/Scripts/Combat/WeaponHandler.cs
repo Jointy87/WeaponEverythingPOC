@@ -20,6 +20,7 @@ namespace WeaponEverything.Combat
 		Animator animator;
 		WeaponStashSystem stash;
 		SpriteRenderer render;
+		PlayerMover mover;
 
 		//States
 		int startValue = 0;
@@ -35,11 +36,12 @@ namespace WeaponEverything.Combat
 			animator = GetComponent<Animator>();
 			stash = FindObjectOfType<WeaponStashSystem>();
 			render = GetComponent<SpriteRenderer>();
+			mover = GetComponentInParent<PlayerMover>();
 		}
 
 		private void OnEnable()
 		{
-			GetComponentInParent<PlayerMover>().onAnimation += WeaponAnimations;
+			if(mover != null) mover.onAnimation += WeaponAnimations;
 		}
 
 		private void Start() 			
@@ -59,13 +61,14 @@ namespace WeaponEverything.Combat
 			Destroy(attackPoints);
 			animator.runtimeAnimatorController = weaponsInfo.FetchWeaponAnimator(weapon);
 			attackPoints = Instantiate(weaponsInfo.FetchAttackPoints(weapon), transform);
+
 			if(!weaponsInfo.FetchWeaponMaterial(currentWeapon)) return;
 			render.material = weaponsInfo.FetchWeaponMaterial(currentWeapon);
 		}
 
 		public void SwitchWeapons()
 		{
-			if (stash.FetchStash() == 0) return;
+			if (stash.FetchChargeAmount() == 0) return;
 
 			if (currentWeapon == (WeaponType)Enum.GetValues(typeof(WeaponType)).Length - 1)
 			{
@@ -112,7 +115,7 @@ namespace WeaponEverything.Combat
 						hasHit = true;
 					}
 					
-					if (decayTimerActive == false && stash.FetchStash() > 0 && currentWeapon != WeaponType.Unarmed)
+					if (decayTimerActive == false && stash.FetchChargeAmount() > 0 && currentWeapon != WeaponType.Unarmed)
 					{
 						decayTimerActive = true;
 						decayTimer = decayTime;
@@ -134,8 +137,8 @@ namespace WeaponEverything.Combat
 				decayTimer = 0;
 				decayTimerActive = false;
 				flashed = false;
-				stash.RemoveFromStash();
-				if (stash.FetchStash() == 0) SetCurrentWeapon(WeaponType.Unarmed);
+				if (stash.FetchChargeAmount() != 0) stash.RemoveCharge();
+				if (stash.FetchChargeAmount() == 0) SetCurrentWeapon(WeaponType.Unarmed);
 			}
 		}
 
@@ -168,7 +171,7 @@ namespace WeaponEverything.Combat
 
 		private void OnDisable()
 		{
-			GetComponentInParent<PlayerMover>().onAnimation -= WeaponAnimations;
+			if (mover != null) mover.onAnimation -= WeaponAnimations;
 		}
 	}
 }

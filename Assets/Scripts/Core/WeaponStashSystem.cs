@@ -1,64 +1,82 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WeaponEverything.Core
 {
 	public class WeaponStashSystem : MonoBehaviour
 	{
 		//Config parameters
-		[SerializeField] GameObject[] swords;
+		[SerializeField] float containerMaxFill = 10;
+		[SerializeField] GameObject containerFiller;
+		[SerializeField] GameObject[] charges;
 
 		//States
 		int stashSize = 0;
 		bool isAlive = true;
+		float fillAmount = 0;
+		int chargesAmount = 0;
 
 		public delegate void PlayerDieDelegate();
 		public event PlayerDieDelegate onPlayerDeath;
 
 		void Start()
 		{
-			stashSize = 1;
+			fillAmount = 0;
+			chargesAmount = 1;
 		}
 
-		void Update()
+		private void Update() 
 		{
-			DisplayWeapons();
+			UpdateFillAmount();
+			UpdateChargeAmount();
 		}
 
-		private void DisplayWeapons()
+		public void AddToFill(float amount)
 		{
-			for (int sword = 0; sword <= swords.Length - 1; sword++)
+			fillAmount += amount;
+			if(fillAmount >= containerMaxFill && chargesAmount != charges.Length)
 			{
-				if (sword < stashSize)
-				{
-					swords[sword].SetActive(true);
-				}
-				else
-				{
-					swords[sword].SetActive(false);
-				}
+				chargesAmount++;
+				fillAmount -= containerMaxFill;
+			}
+			else if (fillAmount >= containerMaxFill && chargesAmount == charges.Length)
+			{
+				fillAmount = containerMaxFill;
+			}
+			
+		}
+
+		private void UpdateFillAmount()
+		{
+			containerFiller.transform.localScale = 
+				new Vector3(1, fillAmount / containerMaxFill, 1);
+		}
+
+		private void UpdateChargeAmount()
+		{
+			for (int chargeIndex = 0; chargeIndex < charges.Length; chargeIndex++)
+			{
+				if(chargeIndex <= chargesAmount - 1) charges[chargeIndex].SetActive(true);
+				else charges[chargeIndex].SetActive(false);
 			}
 		}
 
-		public void AddToStash()
+		public void RemoveCharge()
 		{
-			stashSize++;
-		}
-
-		public void RemoveFromStash()
-		{
-			if (stashSize == 0)
+			if (chargesAmount == 0)
 			{
 				isAlive = false;
 				onPlayerDeath();
 			}
-			stashSize--;
+			else chargesAmount--;
 		}
 
-		public int FetchStash()
+		public float FetchChargeAmount()
 		{
-			return stashSize;
+			return chargesAmount;
 		}
 
 		public bool IsAlive()

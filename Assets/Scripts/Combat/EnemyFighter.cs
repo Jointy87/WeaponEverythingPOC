@@ -15,7 +15,6 @@ namespace WeaponEverything.Combat
 		[SerializeField] Transform[] attackPoints;
 		[SerializeField] LayerMask playerLayer;
 		[SerializeField] float[] attackPointRadius;
-		[SerializeField] GameObject weaponPickup;
 
 		//Cache
 		Animator animator;
