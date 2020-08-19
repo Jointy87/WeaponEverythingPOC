@@ -22,38 +22,38 @@ AnimationClip:
     - time: 0
       value: {fileID: -3358354254238906996, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
-    - time: 0.071428575
+    - time: 0.0625
       value: {fileID: 2468470069984025400, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
-    - time: 0.14285715
+    - time: 0.125
       value: {fileID: -7913932978120832538, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
-    - time: 0.21428572
+    - time: 0.1875
       value: {fileID: -1016414727383380071, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
-    - time: 0.2857143
+    - time: 0.25
       value: {fileID: -3521200806167907148, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
-    - time: 0.35714287
+    - time: 0.3125
       value: {fileID: 7157567664579859856, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
-    - time: 0.42857143
+    - time: 0.375
       value: {fileID: -865148206455073536, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
-    - time: 0.5
+    - time: 0.4375
       value: {fileID: 3898865937967313070, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
-    - time: 0.5714286
+    - time: 0.5
       value: {fileID: -8333472872333954971, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
-    - time: 0.64285713
+    - time: 0.5625
       value: {fileID: 8712791048242765484, guid: 27a3c9bc886ccac4ebd073a6e2018876,
         type: 3}
     attribute: m_Sprite
     path: Legs Sprite
     classID: 212
     script: {fileID: 0}
-  m_SampleRate: 14
+  m_SampleRate: 16
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -83,7 +83,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.71428573
+    m_StopTime: 0.625
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -110,46 +110,53 @@ AnimationClip:
     floatParameter: -0.0008
     intParameter: 0
     messageOptions: 0
-  - time: 0.071428575
+  - time: 0.0625
     functionName: SyncBody
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0.0287
     intParameter: 0
     messageOptions: 0
-  - time: 0.14285715
+  - time: 0.125
     functionName: SyncBody
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: -0.0024
     intParameter: 0
     messageOptions: 0
-  - time: 0.21428572
+  - time: 0.1875
     functionName: SyncBody
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: -0.0024
     intParameter: 0
     messageOptions: 0
-  - time: 0.2857143
+  - time: 0.25
     functionName: SyncBody
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: -0.0024
     intParameter: 0
     messageOptions: 0
-  - time: 0.35714287
+  - time: 0.3125
     functionName: SyncBody
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: -0.0024
     intParameter: 0
     messageOptions: 0
-  - time: 0.42857143
+  - time: 0.375
     functionName: SyncBody
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0.0287
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.4375
+    functionName: SyncBody
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: -0.0024
     intParameter: 0
     messageOptions: 0
   - time: 0.5
@@ -159,14 +166,7 @@ AnimationClip:
     floatParameter: -0.0024
     intParameter: 0
     messageOptions: 0
-  - time: 0.5714286
-    functionName: SyncBody
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: -0.0024
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.64285713
+  - time: 0.5625
     functionName: SyncBody
     data: 
     objectReferenceParameter: {fileID: 0}
