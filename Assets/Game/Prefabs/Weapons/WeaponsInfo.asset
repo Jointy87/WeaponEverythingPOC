@@ -21,7 +21,7 @@ MonoBehaviour:
       enemyLayers:
         serializedVersion: 2
         m_Bits: 512
-      animatorController: {fileID: 22100000, guid: 4950ce54ffa2b2b4c93f0ee0750a697e,
+      animatorController: {fileID: 22100000, guid: 9396eb940fa876f4c94207a6826290ee,
         type: 2}
       weaponMaterial: {fileID: 0}
   - weaponType: 1
@@ -32,7 +32,7 @@ MonoBehaviour:
       enemyLayers:
         serializedVersion: 2
         m_Bits: 512
-      animatorController: {fileID: 22100000, guid: 5a518dcb73ec5b34ea017941aa05d8c4,
+      animatorController: {fileID: 22100000, guid: bf495dfd6d3b480448a3d82af17e0390,
         type: 2}
       weaponMaterial: {fileID: 2100000, guid: e17500927d4a52c4b9b094124442091c, type: 2}
   - weaponType: 2
@@ -43,6 +43,6 @@ MonoBehaviour:
       enemyLayers:
         serializedVersion: 2
         m_Bits: 512
-      animatorController: {fileID: 22100000, guid: bb462369ca9dd70479ec2c543277c88b,
+      animatorController: {fileID: 22100000, guid: c6238de663732554cbe1be4936466299,
         type: 2}
       weaponMaterial: {fileID: 2100000, guid: e17500927d4a52c4b9b094124442091c, type: 2}

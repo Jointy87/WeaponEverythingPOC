@@ -44,7 +44,7 @@ namespace WeaponEverything.Combat
 		public void Attack()
 		{
 			animator.SetTrigger("attack");
-			weapon.SetAnimationTrigger("attack");				
+			weapon.SetAnimationTrigger("attack");	
 		}
 
 		public void StartRoll()

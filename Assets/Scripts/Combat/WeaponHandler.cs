@@ -30,12 +30,13 @@ namespace WeaponEverything.Combat
 		bool decayTimerActive = false;
 		float decayTimer = 0;
 		bool flashed = false;
+		bool hasHit = false;
 
 		private void Awake()
 		{
 			animator = GetComponent<Animator>();
 			stash = FindObjectOfType<WeaponStashSystem>();
-			render = GetComponent<SpriteRenderer>();
+			render = GetComponentInChildren<SpriteRenderer>();
 			mover = GetComponentInParent<PlayerMover>();
 		}
 
@@ -78,27 +79,11 @@ namespace WeaponEverything.Combat
 		}
 
 		//Called from animator
-		public void AttackHit(int value)
+		public void AttackHit()
 		{
-			if (value == 0) //sword or spear hit
-			{
-				startValue = 0;
-				condition = attackPoints.FetchAttackPoints().Length - 1;
-			}
-			else if (value == 1) //first unarmedhit
-			{
-				startValue = 0;
-				condition = 3;
-			}
-			else if (value == 2) //second unarmedhit
-			{
-				startValue = 4;
-				condition = 7;
-			}
+			if(hasHit) return;
 
-			bool hasHit = false;
-
-			for (int pointIndex = startValue; pointIndex <= condition; pointIndex++)
+			for (int pointIndex = 0; pointIndex <= attackPoints.FetchAttackPoints().Length - 1; pointIndex++)
 			{
 				Transform[] points = attackPoints.FetchAttackPoints();
 				float[] pointRadius = attackPoints.FetchAttackPointRadius();
@@ -167,6 +152,12 @@ namespace WeaponEverything.Combat
 		public WeaponType FetchCurrentWeapon()
 		{
 			return currentWeapon;
+		}
+
+		public void StopAttack() //Called by animator
+		{
+			mover.GetComponent<Animator>().SetTrigger("stopAttacking");
+			hasHit = false;
 		}
 
 		private void OnDisable()
