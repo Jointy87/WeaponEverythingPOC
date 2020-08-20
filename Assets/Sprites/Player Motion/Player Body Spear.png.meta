@@ -77,6 +77,12 @@ TextureImporter:
   - first:
       213: 2178546761039420339
     second: Player Body Spear_24
+  - first:
+      213: -8973538888318480384
+    second: Player Body Spear_25
+  - first:
+      213: 431173487144273684
+    second: Player Body Spear_26
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -177,7 +183,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 448
+        y: 560
         width: 112
         height: 112
       alignment: 0
@@ -187,7 +193,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65b844681c08f1a4487351e78d09ba90
+      spriteID: 5ece46e72c7ef494887bc8e09bd296f5
       internalID: 7749082110729548212
       vertices: []
       indices: 
@@ -198,7 +204,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 112
-        y: 448
+        y: 560
         width: 112
         height: 112
       alignment: 0
@@ -208,7 +214,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9f200a0f814780d4fa0d92f1686183a3
+      spriteID: 77d4a7a5566c4fd41b4686dd0f0bdee9
       internalID: 7254447064028878886
       vertices: []
       indices: 
@@ -219,7 +225,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 224
-        y: 448
+        y: 560
         width: 112
         height: 112
       alignment: 0
@@ -229,7 +235,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80f485b2b0442e24e9a930cd958e3787
+      spriteID: 7befb993d015a2c42a3e2a25e47ab3aa
       internalID: -9000860282158852201
       vertices: []
       indices: 
@@ -240,7 +246,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 336
-        y: 448
+        y: 560
         width: 112
         height: 112
       alignment: 0
@@ -250,7 +256,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c99c1cafcc8d4964999554270d7349a3
+      spriteID: e70f4af0c7bcef04fa1d10cda77aa328
       internalID: 6427965172412956770
       vertices: []
       indices: 
@@ -261,7 +267,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 448
-        y: 448
+        y: 560
         width: 112
         height: 112
       alignment: 0
@@ -271,7 +277,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e31bfb9afb5b634e87c56501dc3f85c
+      spriteID: 75222e3a33a311c49bde20277bae77c8
       internalID: -4928154428807512134
       vertices: []
       indices: 
@@ -282,7 +288,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 336
+        y: 448
         width: 112
         height: 112
       alignment: 0
@@ -292,7 +298,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 139959450324c9b43b4bb11fe7ce39fe
+      spriteID: a7ac0be635e6f0747b84e2c7ac928acb
       internalID: 5009881424757274153
       vertices: []
       indices: 
@@ -303,7 +309,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 112
-        y: 336
+        y: 448
         width: 112
         height: 112
       alignment: 0
@@ -313,7 +319,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e17c87b8b0acb5c4f8f109af17eb9e8f
+      spriteID: b9c9ac627a2e9b94ebae9287d3a48c3f
       internalID: -7943377137231171462
       vertices: []
       indices: 
@@ -324,7 +330,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 224
-        y: 336
+        y: 448
         width: 112
         height: 112
       alignment: 0
@@ -334,7 +340,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9db210b10627f6443ab5d9acf34f6596
+      spriteID: fdca2edef6fc5a947a626b5f5b60d92d
       internalID: 6480732278878107920
       vertices: []
       indices: 
@@ -345,7 +351,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 336
-        y: 336
+        y: 448
         width: 112
         height: 112
       alignment: 0
@@ -355,7 +361,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 637bddc50ba8ea84099788171127e884
+      spriteID: 6d0eb45c7a9129748b434355cbeb7d97
       internalID: -7407921584124188607
       vertices: []
       indices: 
@@ -366,7 +372,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 448
-        y: 336
+        y: 448
         width: 112
         height: 112
       alignment: 0
@@ -376,7 +382,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 348e036905e4ac9449dfea90d788a531
+      spriteID: d6f018811b39c43468322c69ab5c720f
       internalID: -7903541818756458865
       vertices: []
       indices: 
@@ -387,7 +393,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 224
+        y: 336
         width: 112
         height: 112
       alignment: 0
@@ -397,7 +403,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb04157e47205934fb5c3748298b34a3
+      spriteID: 260f02c924b4ef34aa55768c42856155
       internalID: 4595790815985977874
       vertices: []
       indices: 
@@ -408,7 +414,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 112
-        y: 224
+        y: 336
         width: 112
         height: 112
       alignment: 0
@@ -418,7 +424,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aff0929995e4b5f458c738fc1f165e59
+      spriteID: 2b41edc7ab2eb1e448859f0a27ead396
       internalID: -3920645152635509691
       vertices: []
       indices: 
@@ -429,7 +435,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 224
-        y: 224
+        y: 336
         width: 112
         height: 112
       alignment: 0
@@ -439,7 +445,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 004cc1bf0c807704b9fb757885d5c429
+      spriteID: ba59d31b097ec93489a05e82b8fbd68c
       internalID: -5107688505677719407
       vertices: []
       indices: 
@@ -450,7 +456,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 336
-        y: 224
+        y: 336
         width: 112
         height: 112
       alignment: 0
@@ -460,7 +466,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28479068efda7684a8f2d9a75666f9d1
+      spriteID: 3447ed02311ae9b47b6bca4003d9585d
       internalID: -8814024692032502220
       vertices: []
       indices: 
@@ -471,7 +477,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 448
-        y: 224
+        y: 336
         width: 112
         height: 112
       alignment: 0
@@ -481,7 +487,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f1e2d7d2900c7c94d87e41a72f6bd7d8
+      spriteID: a78d05778249c374aaa717690ab1e085
       internalID: 3132093144968722971
       vertices: []
       indices: 
@@ -492,6 +498,111 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
+        y: 224
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b79364abb73241b40a696bb30813b0be
+      internalID: -1210287225668284569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Body Spear_16
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 224
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 922c35b052bdba84fad442901b55bf1c
+      internalID: 9108942044765522488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Body Spear_17
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 224
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e91fa6d1d4dd7df42ab211d0c15b4d91
+      internalID: 4305745009972092808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Body Spear_18
+      rect:
+        serializedVersion: 2
+        x: 336
+        y: 224
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 087655bef8ba8734a94bbb6dd8098809
+      internalID: 6425618512856452351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Body Spear_19
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 224
+        width: 112
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b5f1cd82b8dc1a44babd63badc1bc14
+      internalID: -8548865829212636729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player Body Spear_20
+      rect:
+        serializedVersion: 2
+        x: 0
         y: 112
         width: 112
         height: 112
@@ -502,14 +613,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d0350561b41fb814a913f7439fb81146
-      internalID: -1210287225668284569
+      spriteID: 80cd077db399acc4fb6823ce6eb47e03
+      internalID: -8351224957216866471
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Body Spear_16
+      name: Player Body Spear_21
       rect:
         serializedVersion: 2
         x: 112
@@ -523,14 +634,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: abe7bf40cb438d84a946ece8d96ffe04
-      internalID: 9108942044765522488
+      spriteID: e065998a32d17a44f99e4cf379389869
+      internalID: -5135838200198661205
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Body Spear_17
+      name: Player Body Spear_22
       rect:
         serializedVersion: 2
         x: 224
@@ -544,14 +655,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b0dc5afacea741e4da1d399b16db64cd
-      internalID: 4305745009972092808
+      spriteID: d4dcd2398e506b04bb7e8eea6f428d1a
+      internalID: -4214434675014060508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Body Spear_18
+      name: Player Body Spear_23
       rect:
         serializedVersion: 2
         x: 336
@@ -565,14 +676,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c0630f4d879cd74a93d8559a33a5e84
-      internalID: 6425618512856452351
+      spriteID: da29a4d06b5b9cf47bc544fa3e44b294
+      internalID: 2733336187811844325
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Body Spear_19
+      name: Player Body Spear_24
       rect:
         serializedVersion: 2
         x: 448
@@ -586,14 +697,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38d38fadd7e03944a9eb31591bcac074
-      internalID: -8548865829212636729
+      spriteID: 2e3fe19e913ca884e9e06cfea5a59624
+      internalID: 2178546761039420339
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Body Spear_20
+      name: Player Body Spear_25
       rect:
         serializedVersion: 2
         x: 0
@@ -607,14 +718,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f09a0ee725e053440822e96101d01a6d
-      internalID: -8351224957216866471
+      spriteID: e6dd31a0af9dbf044a0fff371915b021
+      internalID: -8973538888318480384
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Player Body Spear_21
+      name: Player Body Spear_26
       rect:
         serializedVersion: 2
         x: 112
@@ -628,71 +739,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1b3ffffb278b89e479f853d3268eaf3e
-      internalID: -5135838200198661205
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Body Spear_22
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c3a3bdec7a0ef4a479e5d4f0508508c1
-      internalID: -4214434675014060508
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Body Spear_23
-      rect:
-        serializedVersion: 2
-        x: 336
-        y: 0
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9a50f3e97fc7a2f4c8554d3a9d7798ff
-      internalID: 2733336187811844325
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player Body Spear_24
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 0
-        width: 112
-        height: 112
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c7d1b194243ddb94ba7b9dc42d317ca7
-      internalID: 2178546761039420339
+      spriteID: 5717f28356326744fb5c0ea06ae5ccfa
+      internalID: 431173487144273684
       vertices: []
       indices: 
       edges: []
