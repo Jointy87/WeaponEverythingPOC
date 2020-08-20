@@ -189,6 +189,16 @@ namespace WeaponEverything.Combat
 			weaponBreakParticles.Play();
 		}
 
+		public bool FetchDecayTimerActive()
+		{
+			return decayTimerActive;
+		}
+
+		public void SetDecayTimer(float value)
+		{
+			decayTimer = value;
+		}
+
 		private void OnDisable()
 		{
 			if (mover) mover.onAnimation -= WeaponAnimations;

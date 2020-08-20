@@ -114,8 +114,9 @@ namespace WeaponEverything.Combat
 
 				yield return null;
 			}
-
-			stash.RemoveCharge();
+			
+			if(weapon.FetchDecayTimerActive()) weapon.SetDecayTimer(0);
+			else stash.RemoveCharge();
 		}
 
 		private void Die()
