@@ -36,13 +36,15 @@ namespace WeaponEverything.Combat
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
 			GetComponent<Animator>().SetFloat("horizontalSpeed", 0);
 			GetComponent<Animator>().SetFloat("verticalSpeed", 0);
+			weapon.GetComponent<Animator>().SetFloat("horizontalSpeed", 0);
+			weapon.GetComponent<Animator>().SetFloat("verticalSpeed", 0);
 
 			originVector =
 				new Vector3(throwOrigin.position.x, throwOrigin.position.y, throwOrigin.position.z);
 
 			lr.enabled = true;
 
-			if (stash.FetchChargeAmount() == 0) lr.material.color = Color.red;
+			if (weapon.FetchCurrentWeapon() == WeaponType.Unarmed || stash.FetchChargeAmount() == 0) lr.material.color = Color.red;
 			else lr.material.color = Color.white;
 
 			aimVector = new Vector3(aimDirection.x, aimDirection.y, 0);
