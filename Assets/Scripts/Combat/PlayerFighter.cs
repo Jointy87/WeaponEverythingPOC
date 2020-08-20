@@ -42,7 +42,7 @@ namespace WeaponEverything.Combat
 		{
 			isRolling = false;
 			animator.SetTrigger("attack");
-			weapon.SetAnimationTrigger("attack");	
+			weapon.GetComponent<Animator>().SetTrigger("attack");	
 		}
 
 		public void StartRoll()
@@ -96,7 +96,7 @@ namespace WeaponEverything.Combat
 
 			pushBackTimer = 0;
 			animator.SetTrigger("getHit");
-			weapon.SetAnimationTrigger("getHit");
+			weapon.GetComponent<Animator>().SetTrigger("getHit");
 			float currentY = transform.position.y;
 
 			while (pushBackTimer < pushBackDuration)

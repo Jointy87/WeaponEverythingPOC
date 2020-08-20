@@ -42,7 +42,8 @@ namespace WeaponEverything.Control
 
 			if (mover.FetchGrounded() && IsThrowing())
 			{
-				aimDirection = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+				aimDirection = new Vector2(Input.GetAxisRaw("Horizontal"), 
+					Input.GetAxisRaw("Vertical"));
 
 				thrower.Aim(aimDirection);
 

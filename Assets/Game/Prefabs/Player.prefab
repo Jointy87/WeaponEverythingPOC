@@ -389,6 +389,8 @@ MonoBehaviour:
   decayTime: 5
   minFlashInterval: 0.1
   maxFlashInterval: 1
+  slomoTime: 0.3
+  slomoScale: 0.3
 --- !u!1 &7488675884497681748
 GameObject:
   m_ObjectHideFlags: 0

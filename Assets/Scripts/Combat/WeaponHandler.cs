@@ -15,6 +15,8 @@ namespace WeaponEverything.Combat
 		[SerializeField] Rigidbody2D parentRigidbody = null;
 		[SerializeField] float decayTime = 5f;
 		[SerializeField] float minFlashInterval = .1f, maxFlashInterval = 1f;
+		[SerializeField] float slomoTime = 1f;
+		[SerializeField] float slomoScale = .3f;
 
 		//Cache
 		Animator animator;
@@ -31,6 +33,8 @@ namespace WeaponEverything.Combat
 		float decayTimer = 0;
 		bool flashed = false;
 		bool hasHit = false;
+		bool weaponBreakActive = false;
+		float weaponBreakTimer = Mathf.Infinity;
 
 		private void Awake()
 		{
@@ -53,8 +57,9 @@ namespace WeaponEverything.Combat
 
 		private void Update()
 		{
-			UpdateDecayTimer();
+			HandleDecayTimerAndFlashing();
 			CheckWeaponFlashState();
+			UpdateWeaponBreakTimer();
 		}
 
 		public void SwitchWeapons()
@@ -82,6 +87,50 @@ namespace WeaponEverything.Combat
 
 			if(!weaponsInfo.FetchWeaponMaterial(currentWeapon)) return;
 			render.material = weaponsInfo.FetchWeaponMaterial(currentWeapon);
+		}
+
+		private void HandleDecayTimerAndFlashing()
+		{
+			if (!decayTimerActive) return;
+
+			float interval = minFlashInterval + decayTimer / decayTime * (maxFlashInterval - minFlashInterval);
+			decayTimer -= Time.deltaTime;
+			flashed = Mathf.PingPong(Time.time, interval) > (interval / 2f);
+
+			if (decayTimer <= 0)
+			{
+				decayTimer = 0;
+				decayTimerActive = false;
+				flashed = false;
+				if (stash.FetchChargeAmount() != 0) stash.RemoveCharge();
+			}
+		}
+
+		private void CheckWeaponFlashState()
+		{
+			if (flashed) render.material.SetFloat("_Float", 1);
+			else render.material.SetFloat("_Float", 0);
+		}
+
+		public IEnumerator ActivateWeaponBreak()
+		{
+			weaponBreakTimer = 0;
+			weaponBreakActive = true;
+
+			while (weaponBreakTimer < slomoTime)
+			{
+				Time.timeScale = slomoScale;
+				yield return null;
+			}
+
+			weaponBreakActive = false;
+			Time.timeScale = 1f;
+		}
+
+		private void UpdateWeaponBreakTimer()
+		{
+			if (!weaponBreakActive) return;
+			weaponBreakTimer += Time.deltaTime;
 		}
 
 		//Called from animator
@@ -114,39 +163,6 @@ namespace WeaponEverything.Combat
 				}
 			}
 		}
-
-		private void UpdateDecayTimer()
-		{
-			if (!decayTimerActive) return;
-
-			float interval = minFlashInterval + decayTimer / decayTime * (maxFlashInterval - minFlashInterval);
-			decayTimer -= Time.deltaTime;
-			flashed = Mathf.PingPong(Time.time, interval) > (interval / 2f);
-
-			if (decayTimer <= 0)
-			{
-				decayTimer = 0;
-				decayTimerActive = false;
-				flashed = false;
-				if (stash.FetchChargeAmount() != 0) stash.RemoveCharge();
-			}
-		}
-
-		private void CheckWeaponFlashState()
-		{
-			if(flashed) render.material.SetFloat("_Float", 1);
-			else render.material.SetFloat("_Float", 0);
-		}
-
-		public void SetAnimationTrigger(string triggerString)
-        {
-            animator.SetTrigger(triggerString);
-        }
-
-        public void SetAnimatorFloat(string name, float value)
-        {
-            animator.SetFloat(name, value);
-        }
 
 		private void WeaponAnimations(float move) //Used in delegate
 		{
