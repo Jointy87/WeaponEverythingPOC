@@ -25,7 +25,7 @@ namespace WeaponEverything.Movement
 
 		private void Update()
 		{
-			if (isAlive) return;
+			if (!isAlive) return;
 
 			animator.SetFloat("horizontalSpeed", Mathf.Abs(rb.velocity.x));
 

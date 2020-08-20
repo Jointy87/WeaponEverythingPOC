@@ -17,21 +17,18 @@ namespace WeaponEverything.Combat
 		//Cache
 		Animator animator;
 		Rigidbody2D rb;
-		new CapsuleCollider2D collider;
 		WeaponStashSystem stash;
 		WeaponHandler weapon;
 		
 		//States
 		float dashTimer = 0;
 		float pushBackTimer = 0;
-		Vector2 armOrigin;
 		bool isRolling = false;
 
 		private void Awake()
 		{
 			animator = GetComponent<Animator>();
 			rb = GetComponent<Rigidbody2D>();
-			collider = GetComponent<CapsuleCollider2D>();
 			stash = FindObjectOfType<WeaponStashSystem>();
 			weapon = GetComponentInChildren<WeaponHandler>();
 		}
@@ -80,12 +77,6 @@ namespace WeaponEverything.Combat
 			}
 		}
 
-		public void StopRolling() //Called from animator
-		{
-			isRolling = false;
-			weapon.GetComponentInChildren<SpriteRenderer>().enabled = true;
-		}
-
 		public void GetHit(Transform enemyPos)
 		{
 			if (stash.FetchChargeAmount() > 0)
@@ -130,6 +121,12 @@ namespace WeaponEverything.Combat
 			animator.SetTrigger("die");
 			weapon.GetComponentInChildren<SpriteRenderer>().enabled = false;
 			rb.velocity = new Vector2(0, 0);
+		}
+
+		public void StopRolling() //Called from animator
+		{
+			isRolling = false;
+			weapon.GetComponentInChildren<SpriteRenderer>().enabled = true;
 		}
 
 		public bool IsRolling()

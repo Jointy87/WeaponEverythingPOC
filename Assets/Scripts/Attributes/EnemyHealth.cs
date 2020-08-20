@@ -16,6 +16,7 @@ namespace WeaponEverything.Attributes
 
 		//States
 		float healthPoints;
+		bool isAlive = true;
 
 		private void Start() 
 		{
@@ -37,9 +38,6 @@ namespace WeaponEverything.Attributes
 				healthBarCanvas.enabled = false;
 			else healthBarCanvas.enabled = true;
 		}
-
-		//States
-		bool isAlive = true;
 
 		public void SubstractHealth(float amount)
 		{

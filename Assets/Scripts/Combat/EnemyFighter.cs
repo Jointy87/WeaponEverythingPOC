@@ -50,13 +50,13 @@ namespace WeaponEverything.Combat
 
 			CheckForPlayerRoll();
 
-			if (isAttacking) return;
-
 			CanEngage();	
 		}
 
 		private void CanEngage()
 		{
+			if (isAttacking) return;
+
 			if (canEngage && stashSystem.IsAlive())
 			{
 				EngageTarget(player);
