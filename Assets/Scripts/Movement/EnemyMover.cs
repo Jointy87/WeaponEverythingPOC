@@ -60,7 +60,7 @@ namespace WeaponEverything.Movement
 			}
 		}
 
-		private void Flip()
+		public void Flip()
 		{
 			facingRight = !facingRight;
 
@@ -77,6 +77,11 @@ namespace WeaponEverything.Movement
 		public void SetIsAlive(bool value)
 		{
 			isAlive = value;
+		}
+
+		public bool FetchFacingRight()
+		{
+			return facingRight;
 		}
 	}
 }

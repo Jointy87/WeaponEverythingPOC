@@ -4,6 +4,7 @@ using UnityEngine;
 using WeaponEverything.Core;
 using WeaponEverything.Movement;
 using WeaponEverything.Attributes;
+using System;
 
 namespace WeaponEverything.Combat
 {
@@ -75,6 +76,7 @@ namespace WeaponEverything.Combat
 			{
 				if (timeSinceLastAttack >= attackInterval)
 				{
+					CheckAttackDirection(target);
 					isAttacking = true;
 					timeSinceLastAttack = 0;
 					animator.SetTrigger("attack");
@@ -85,6 +87,12 @@ namespace WeaponEverything.Combat
 			{
 				mover.MoveToTarget(target.position);
 			}
+		}
+
+		private void CheckAttackDirection(Transform target)
+		{
+			if(target.position.x > transform.position.x && !mover.FetchFacingRight()) mover.Flip();
+			else if(target.position.x < transform.position.x && mover.FetchFacingRight()) mover.Flip();
 		}
 
 		private void ReturnToGuardPosition()
