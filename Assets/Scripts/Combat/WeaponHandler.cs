@@ -42,7 +42,8 @@ namespace WeaponEverything.Combat
 
 		private void OnEnable()
 		{
-			if(mover != null) mover.onAnimation += WeaponAnimations;
+			if(mover) mover.onAnimation += WeaponAnimations;
+			if(stash) stash.onWeaponSwap += SwitchToWeaponByIndex;
 		}
 
 		private void Start() 			
@@ -56,17 +57,6 @@ namespace WeaponEverything.Combat
 			CheckWeaponFlashState();
 		}
 
-		public void SetCurrentWeapon(WeaponType weapon)
-		{
-			currentWeapon = weapon;
-			Destroy(attackPoints);
-			animator.runtimeAnimatorController = weaponsInfo.FetchWeaponAnimator(weapon);
-			attackPoints = Instantiate(weaponsInfo.FetchAttackPoints(weapon), transform);
-
-			if(!weaponsInfo.FetchWeaponMaterial(currentWeapon)) return;
-			render.material = weaponsInfo.FetchWeaponMaterial(currentWeapon);
-		}
-
 		public void SwitchWeapons()
 		{
 			if (stash.FetchChargeAmount() == 0) return;
@@ -76,6 +66,22 @@ namespace WeaponEverything.Combat
 				SetCurrentWeapon((WeaponType)0);
 			}
 			else SetCurrentWeapon((WeaponType)currentWeapon + 1);
+		}
+
+		private void SwitchToWeaponByIndex(int weaponTypeIndex)
+		{
+			SetCurrentWeapon((WeaponType)weaponTypeIndex);
+		}
+
+		public void SetCurrentWeapon(WeaponType weapon)
+		{
+			currentWeapon = weapon;
+			Destroy(attackPoints);
+			animator.runtimeAnimatorController = weaponsInfo.FetchWeaponAnimator(weapon);
+			attackPoints = Instantiate(weaponsInfo.FetchAttackPoints(weapon), transform);
+
+			if(!weaponsInfo.FetchWeaponMaterial(currentWeapon)) return;
+			render.material = weaponsInfo.FetchWeaponMaterial(currentWeapon);
 		}
 
 		//Called from animator
@@ -123,7 +129,6 @@ namespace WeaponEverything.Combat
 				decayTimerActive = false;
 				flashed = false;
 				if (stash.FetchChargeAmount() != 0) stash.RemoveCharge();
-				if (stash.FetchChargeAmount() == 0) SetCurrentWeapon(WeaponType.Unarmed);
 			}
 		}
 
@@ -162,7 +167,8 @@ namespace WeaponEverything.Combat
 
 		private void OnDisable()
 		{
-			if (mover != null) mover.onAnimation -= WeaponAnimations;
+			if (mover) mover.onAnimation -= WeaponAnimations;
+			if (stash) stash.onWeaponSwap -= SwitchToWeaponByIndex;
 		}
 	}
 }

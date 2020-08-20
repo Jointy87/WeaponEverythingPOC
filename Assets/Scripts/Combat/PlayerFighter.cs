@@ -84,8 +84,6 @@ namespace WeaponEverything.Combat
 			}
 
 			stash.RemoveCharge();
-
-			if(stash.FetchChargeAmount() == 0) weapon.SetCurrentWeapon(WeaponType.Unarmed);
 		}
 
 		IEnumerator PushBack(Transform enemyPos)

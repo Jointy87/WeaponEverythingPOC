@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WeaponEverything.Core;
 
 namespace WeaponEverything.Combat
 {
@@ -14,6 +15,8 @@ namespace WeaponEverything.Combat
 
 		//Cache
 		LineRenderer lr;
+		WeaponHandler weapon;
+		WeaponStashSystem stash;
 
 		//States
 		Vector3 originVector;
@@ -24,6 +27,8 @@ namespace WeaponEverything.Combat
 		private void Awake()
 		{
 			lr = GetComponentInChildren<LineRenderer>();
+			weapon = GetComponentInChildren<WeaponHandler>();
+			stash = FindObjectOfType<WeaponStashSystem>();
 		}
 
 		public void Aim(Vector2 aimDirection)
@@ -36,6 +41,10 @@ namespace WeaponEverything.Combat
 				new Vector3(throwOrigin.position.x, throwOrigin.position.y, throwOrigin.position.z);
 
 			lr.enabled = true;
+
+			if (stash.FetchChargeAmount() == 0) lr.material.color = Color.red;
+			else lr.material.color = Color.white;
+
 			aimVector = new Vector3(aimDirection.x, aimDirection.y, 0);
 
 			lr.SetPosition(0, originVector);
@@ -44,11 +53,15 @@ namespace WeaponEverything.Combat
 
 		public void Throw(Vector2 aimDirection)
 		{
+			if(weapon.FetchCurrentWeapon() == WeaponType.Unarmed || stash.FetchChargeAmount() == 0) return;
+
 			float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 
 			GameObject projectile = Instantiate(weaponToThrow,
 				originVector, Quaternion.AngleAxis(aimAngle, Vector3.forward));
 			projectile.GetComponent<Rigidbody2D>().velocity = aimDirection * throwSpeed * Time.deltaTime;
+
+			stash.RemoveCharge();
 			
 			// TO DO: Ensure that speed of projectile is always the same, now matter how far thumbstick is pushed
 		}

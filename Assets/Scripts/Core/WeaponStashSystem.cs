@@ -22,6 +22,10 @@ namespace WeaponEverything.Core
 		public delegate void PlayerDieDelegate();
 		public event PlayerDieDelegate onPlayerDeath;
 
+		public delegate void SwitchWeaponDelegate(int weaponTypeIndex);
+		public event SwitchWeaponDelegate onWeaponSwap;
+
+
 		void Start()
 		{
 			fillAmount = 0;
@@ -32,6 +36,21 @@ namespace WeaponEverything.Core
 		{
 			UpdateFillAmount();
 			UpdateChargeAmount();
+		}
+
+		private void UpdateFillAmount()
+		{
+			containerFiller.transform.localScale =
+				new Vector3(1, fillAmount / containerMaxFill, 1);
+		}
+
+		private void UpdateChargeAmount()
+		{
+			for (int chargeIndex = 0; chargeIndex < charges.Length; chargeIndex++)
+			{
+				if (chargeIndex <= chargesAmount - 1) charges[chargeIndex].SetActive(true);
+				else charges[chargeIndex].SetActive(false);
+			}
 		}
 
 		public void AddToFill(float amount)
@@ -49,21 +68,6 @@ namespace WeaponEverything.Core
 			
 		}
 
-		private void UpdateFillAmount()
-		{
-			containerFiller.transform.localScale = 
-				new Vector3(1, fillAmount / containerMaxFill, 1);
-		}
-
-		private void UpdateChargeAmount()
-		{
-			for (int chargeIndex = 0; chargeIndex < charges.Length; chargeIndex++)
-			{
-				if(chargeIndex <= chargesAmount - 1) charges[chargeIndex].SetActive(true);
-				else charges[chargeIndex].SetActive(false);
-			}
-		}
-
 		public void RemoveCharge()
 		{
 			if (chargesAmount == 0)
@@ -72,6 +76,8 @@ namespace WeaponEverything.Core
 				onPlayerDeath();
 			}
 			else chargesAmount--;
+
+			if(chargesAmount == 0) onWeaponSwap(0); //TO DO: Check other place where I swap to unarmed and make it like this
 		}
 
 		public float FetchChargeAmount()

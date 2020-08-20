@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using WeaponEverything.Attributes;
-using WeaponEverything.Core;
 
 namespace WeaponEverything.Combat
 {
@@ -25,7 +24,6 @@ namespace WeaponEverything.Combat
 			if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
 			{
 				other.GetComponent<EnemyHealth>().Die();	//TO DO: Make projectiles do dmg instead of kill
-				FindObjectOfType<WeaponStashSystem>().RemoveCharge();
 				Destroy(gameObject);
 			}
 			else if (other.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
