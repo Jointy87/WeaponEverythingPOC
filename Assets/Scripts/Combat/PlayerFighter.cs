@@ -69,8 +69,6 @@ namespace WeaponEverything.Combat
 					rb.velocity = new Vector2(direction * dashSpeed * Time.deltaTime,
 						rb.velocity.y);
 
-					transform.position = new Vector2(transform.position.x, currentY);
-
 					dashTimer += Time.deltaTime;
 
 					yield return null;
