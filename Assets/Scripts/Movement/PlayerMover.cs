@@ -39,22 +39,6 @@ namespace WeaponEverything.Movement
 		{
 			CheckIfGrounded();
 			AddGravityIfFalling();
-
-			AnimatorClipInfo[] clipInfo = animator.GetCurrentAnimatorClipInfo(0);
-			AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-			// Animation currentAnimation = stateInfo.
-			// var time = currentAnimation.AnimationState.normalizedTime;
-
-			//int currentFrame = (int)(AnimationState.normalizedTime *(clipInfo[0].clip.length * clipInfo[0].clip.frameRate));
-			//print(clipInfo[0].clip.name);
-			//print (currentFrame);
-			//print(stateInfo.normalizedTime);
-			// if(/*clipInfo[0].clip.name == "Player Legs Run" &&*/ currentFrame <= 2) 
-			// GetComponentInChildren<SpriteRenderer>().transform.localPosition =
-			// 	new Vector3(0, -0.2f, 0);
-
-			// else GetComponentInChildren<SpriteRenderer>().transform.localPosition =
-			// 	new Vector3(0, 0, 0);
 		}
 
 		private void CheckIfGrounded()

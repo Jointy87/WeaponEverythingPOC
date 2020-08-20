@@ -62,7 +62,7 @@ namespace WeaponEverything.Combat
 				isRolling = true;
 
 				animator.SetTrigger("roll");
-				weapon.SetAnimationTrigger("roll");
+				weapon.GetComponentInChildren<SpriteRenderer>().enabled = false;
 
 				float currentY = transform.position.y;
 
@@ -77,8 +77,13 @@ namespace WeaponEverything.Combat
 
 					yield return null;
 				}
-				isRolling = false;
 			}
+		}
+
+		public void StopRolling() //Called from animator
+		{
+			isRolling = false;
+			weapon.GetComponentInChildren<SpriteRenderer>().enabled = true;
 		}
 
 		public void GetHit(Transform enemyPos)
@@ -123,7 +128,7 @@ namespace WeaponEverything.Combat
 		private void Die()
 		{
 			animator.SetTrigger("die");
-			weapon.SetAnimationTrigger("die");
+			weapon.GetComponentInChildren<SpriteRenderer>().enabled = false;
 			rb.velocity = new Vector2(0, 0);
 		}
 
