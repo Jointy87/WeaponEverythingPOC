@@ -40,6 +40,7 @@ namespace WeaponEverything.Combat
 
 		public void Attack()
 		{
+			isRolling = false;
 			animator.SetTrigger("attack");
 			weapon.SetAnimationTrigger("attack");	
 		}
@@ -63,7 +64,7 @@ namespace WeaponEverything.Combat
 
 				float currentY = transform.position.y;
 
-				while (dashTimer < dashDuration)
+				while (dashTimer < dashDuration && isRolling == true)
 				{
 					rb.velocity = new Vector2(direction * dashSpeed * Time.deltaTime,
 						rb.velocity.y);
