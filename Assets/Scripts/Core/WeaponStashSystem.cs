@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace WeaponEverything.Core
 {
@@ -24,13 +23,6 @@ namespace WeaponEverything.Core
 
 		public delegate void SwitchWeaponDelegate(int weaponTypeIndex);
 		public event SwitchWeaponDelegate onWeaponSwap;
-
-
-		void Start()
-		{
-			fillAmount = 0;
-			chargesAmount = 1;
-		}
 
 		private void Update() 
 		{
@@ -56,8 +48,10 @@ namespace WeaponEverything.Core
 		public void AddToFill(float amount)
 		{
 			fillAmount += amount;
+
 			if(fillAmount >= containerMaxFill && chargesAmount != charges.Length)
 			{
+				if(chargesAmount == 0) onWeaponSwap(1);
 				chargesAmount++;
 				fillAmount -= containerMaxFill;
 			}
@@ -77,7 +71,7 @@ namespace WeaponEverything.Core
 			}
 			else chargesAmount--;
 
-			if(chargesAmount == 0) onWeaponSwap(0); //TO DO: Check other place where I swap to unarmed and make it like this
+			if(chargesAmount == 0) onWeaponSwap(0);
 		}
 
 		public float FetchChargeAmount()
@@ -88,6 +82,11 @@ namespace WeaponEverything.Core
 		public bool IsAlive()
 		{
 			return isAlive;
+		}
+
+		public void SetIsAlive(bool value)
+		{
+			isAlive = value;
 		}
 	}
 }

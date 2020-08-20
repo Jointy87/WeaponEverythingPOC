@@ -82,8 +82,11 @@ namespace WeaponEverything.Combat
 			{
 				StartCoroutine(PushBack(enemyPos));
 			}
-
-			stash.RemoveCharge();
+			else if (stash.IsAlive())
+			{
+				stash.SetIsAlive(false);
+				Die();
+			} 
 		}
 
 		IEnumerator PushBack(Transform enemyPos)
@@ -111,6 +114,8 @@ namespace WeaponEverything.Combat
 
 				yield return null;
 			}
+
+			stash.RemoveCharge();
 		}
 
 		private void Die()

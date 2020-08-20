@@ -17,6 +17,7 @@ namespace WeaponEverything.Combat
 		[SerializeField] float minFlashInterval = .1f, maxFlashInterval = 1f;
 		[SerializeField] float slomoTime = 1f;
 		[SerializeField] float slomoScale = .3f;
+		[SerializeField] ParticleSystem weaponBreakParticles = null;
 
 		//Cache
 		Animator animator;
@@ -68,7 +69,7 @@ namespace WeaponEverything.Combat
 
 			if (currentWeapon == (WeaponType)Enum.GetValues(typeof(WeaponType)).Length - 1)
 			{
-				SetCurrentWeapon((WeaponType)0);
+				SetCurrentWeapon((WeaponType)1);
 			}
 			else SetCurrentWeapon((WeaponType)currentWeapon + 1);
 		}
@@ -103,6 +104,8 @@ namespace WeaponEverything.Combat
 				decayTimerActive = false;
 				flashed = false;
 				if (stash.FetchChargeAmount() != 0) stash.RemoveCharge();
+				StartCoroutine(ActivateWeaponBreak());
+				PlayWeaponBreakParticles();
 			}
 		}
 
@@ -179,6 +182,11 @@ namespace WeaponEverything.Combat
 		{
 			mover.GetComponent<Animator>().SetTrigger("stopAttacking");
 			hasHit = false;
+		}
+
+		public void PlayWeaponBreakParticles() //Called by animator
+		{
+			weaponBreakParticles.Play();
 		}
 
 		private void OnDisable()
