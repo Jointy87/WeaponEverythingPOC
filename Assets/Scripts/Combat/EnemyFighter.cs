@@ -31,6 +31,7 @@ namespace WeaponEverything.Combat
 		float timeSinceLastAttack = Mathf.Infinity;
 		Vector2 guardPosition;
 		bool isAttacking = false;
+		bool isPushed = false;
 
 		private void Awake()
 		{
@@ -56,7 +57,7 @@ namespace WeaponEverything.Combat
 
 		private void CanEngage()
 		{
-			if (isAttacking) return;
+			if (isAttacking || isPushed) return;
 
 			if (canEngage && stashSystem.isAlive)
 			{
@@ -112,8 +113,14 @@ namespace WeaponEverything.Combat
 			}
 		}
 
-		// Called from animator
-		private void AttackHit()
+		public void Push()
+		{
+			isAttacking = false;
+			isPushed = true;
+			animator.SetTrigger("push");
+		}
+
+		private void AttackHit() // Called from animator
 		{
 			for (int pointIndex = 0; pointIndex <= attackPoints.Length - 1; pointIndex++)
 			{
@@ -127,10 +134,14 @@ namespace WeaponEverything.Combat
 			}
 		}
 
-		// Called from animator
-		private void IsAttacking()
+		private void IsAttackingFalse() // Called from animator
 		{
 			isAttacking = false;
+		}
+
+		private void IsPushedFalse() //Called from animator
+		{
+			isPushed = false;
 		}
 
 		private void OnDrawGizmosSelected()

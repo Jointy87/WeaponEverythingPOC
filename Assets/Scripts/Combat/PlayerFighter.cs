@@ -92,19 +92,18 @@ namespace WeaponEverything.Combat
 		IEnumerator PushBack(Transform enemyPos)
 		{
 			float direction = 1;
-			if (transform.position.x < enemyPos.position.x)
-			{
-				direction = -1;
-			}
+			if (transform.position.x < enemyPos.position.x) direction = -1;
 
 			pushBackTimer = 0;
 			animator.SetTrigger("getHit");
 			weapon.GetComponent<Animator>().SetTrigger("getHit");
 			float currentY = transform.position.y;
 
+			if (weapon.decayTimerActive) weapon.decayTimer = 0;
+			else stash.RemoveCharge();
+
 			while (pushBackTimer < pushBackDuration)
 			{
-
 				rb.velocity = new Vector2(direction * pushBackSpeed * Time.deltaTime,
 					rb.velocity.y);
 
@@ -114,9 +113,6 @@ namespace WeaponEverything.Combat
 
 				yield return null;
 			}
-			
-			if(weapon.decayTimerActive) weapon.decayTimer = 0;
-			else stash.RemoveCharge();
 		}
 
 		private void Die()

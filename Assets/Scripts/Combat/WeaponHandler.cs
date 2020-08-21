@@ -15,9 +15,8 @@ namespace WeaponEverything.Combat
 		[SerializeField] Rigidbody2D parentRigidbody = null;
 		[SerializeField] float decayTime = 5f;
 		[SerializeField] float minFlashInterval = .1f, maxFlashInterval = 1f;
-		[SerializeField] float slomoTime = 1f;
-		[SerializeField] float slomoScale = .3f;
 		[SerializeField] ParticleSystem weaponBreakVFX = null;
+		[SerializeField] float weaponBreakRadius = 2f;
 
 		//Cache
 		Animator animator;
@@ -34,7 +33,6 @@ namespace WeaponEverything.Combat
 		public float decayTimer {get; set;} = 0;
 		bool flashed = false;
 		bool hasHit = false;
-		float weaponBreakTimer = Mathf.Infinity;
 
 		private void Awake()
 		{
@@ -46,8 +44,10 @@ namespace WeaponEverything.Combat
 
 		private void OnEnable()
 		{
-			if(mover) mover.onAnimation += WeaponAnimations;
-			if(stash) stash.onWeaponSwap += SwitchToWeaponByIndex;
+			if (mover) mover.onAnimation += WeaponAnimations;
+			if (stash) stash.onWeaponSwap += SwitchToWeaponByIndex;
+			if (stash) stash.onRemoveCharge += EmitWeaponBreakAOE;
+			if (stash) stash.onRemoveCharge += PlayWeaponBreakVFX;
 		}
 
 		private void Start() 			
@@ -102,8 +102,6 @@ namespace WeaponEverything.Combat
 				decayTimerActive = false;
 				flashed = false;
 				if (stash.chargesAmount != 0) stash.RemoveCharge();
-				StartCoroutine(ActivateWeaponBreak());
-				PlayWeaponBreakVFX();
 			}
 		}
 
@@ -113,17 +111,16 @@ namespace WeaponEverything.Combat
 			else render.material.SetFloat("_Float", 0);
 		}
 
-		public IEnumerator ActivateWeaponBreak()
+		private void EmitWeaponBreakAOE() //Used in delegate
 		{
-			weaponBreakTimer = 0;
+			Collider2D[] effectedEnemies = 
+				Physics2D.OverlapCircleAll(transform.position, weaponBreakRadius, LayerMask.GetMask("Enemy"));
+				print("Emitting");
 
-			while (weaponBreakTimer < slomoTime)
+			foreach (Collider2D enemy in effectedEnemies)
 			{
-				weaponBreakTimer += Time.deltaTime;
-				Time.timeScale = slomoScale;
-				yield return null;
+				enemy.GetComponent<EnemyFighter>().Push();
 			}
-			Time.timeScale = 1f;
 		}
 
 		//Called from animator
@@ -169,15 +166,23 @@ namespace WeaponEverything.Combat
 			hasHit = false;
 		}
 
-		public void PlayWeaponBreakVFX() //Called by animator
+		public void PlayWeaponBreakVFX() //Used in delegate
 		{
 			weaponBreakVFX.Play();
+		}
+
+		private void OnDrawGizmosSelected()
+		{
+			Gizmos.color = Color.gray;
+			Gizmos.DrawWireSphere(transform.position, weaponBreakRadius);
 		}
 
 		private void OnDisable()
 		{
 			if (mover) mover.onAnimation -= WeaponAnimations;
 			if (stash) stash.onWeaponSwap -= SwitchToWeaponByIndex;
+			if (stash) stash.onRemoveCharge -= EmitWeaponBreakAOE;
+			if (stash) stash.onRemoveCharge -= PlayWeaponBreakVFX;
 		}
 	}
 }

@@ -14,6 +14,8 @@ namespace WeaponEverything.Core
 		[SerializeField] GameObject[] charges;
 		[SerializeField] float flashTime = .3f;
 		[SerializeField] ParticleSystem chargeLossVFX;
+		[SerializeField] float slomoTime = .3f;
+		[SerializeField] float slomoScale = .3f;
 
 		//States
 		int stashSize = 0;
@@ -22,9 +24,10 @@ namespace WeaponEverything.Core
 		public int chargesAmount {get; private set;} = 0;
 		float flashTimer = Mathf.Infinity;
 		int chargeToFlash = 0;
+		float weaponBreakTimer = Mathf.Infinity;
 
-		public delegate void PlayerDieDelegate();
-		public event PlayerDieDelegate onPlayerDeath;
+		public event Action onPlayerDeath;
+		public event Action onRemoveCharge;
 
 		public delegate void SwitchWeaponDelegate(int weaponTypeIndex);
 		public event SwitchWeaponDelegate onWeaponSwap;
@@ -77,7 +80,9 @@ namespace WeaponEverything.Core
 			else
 			{
 				chargesAmount--;
+				StartCoroutine(WeaponBreakSlomo());
 				StartCoroutine(StartFlash());
+				onRemoveCharge();
 			}
 
 			if (chargesAmount == 0) onWeaponSwap(0);
@@ -101,6 +106,19 @@ namespace WeaponEverything.Core
 			Color originalColor = Color.black;
 			originalColor.a = 0.274f;
 			charges[chargeToFlash].transform.parent.GetComponent<Image>().color = originalColor;
+		}
+
+		public IEnumerator WeaponBreakSlomo()
+		{
+			weaponBreakTimer = 0;
+
+			while (weaponBreakTimer < slomoTime)
+			{
+				weaponBreakTimer += Time.deltaTime;
+				Time.timeScale = slomoScale;
+				yield return null;
+			}
+			Time.timeScale = 1f;
 		}
 
 		private void TriggerChargeLossVFX()

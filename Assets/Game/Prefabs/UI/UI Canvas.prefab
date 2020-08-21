@@ -236,6 +236,8 @@ MonoBehaviour:
   - {fileID: 3207245922571347157}
   flashTime: 0.15
   chargeLossVFX: {fileID: 4646019116302968697}
+  slomoTime: 0.2
+  slomoScale: 0.35
 --- !u!1001 &159370470575787446
 PrefabInstance:
   m_ObjectHideFlags: 0

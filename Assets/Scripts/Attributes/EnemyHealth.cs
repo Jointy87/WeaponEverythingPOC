@@ -44,10 +44,7 @@ namespace WeaponEverything.Attributes
 			if(!isAlive) return;
 
 			healthPoints = Mathf.Max(healthPoints - amount, 0);
-			if(healthPoints == 0)
-			{
-				Die();
-			}
+			if(healthPoints == 0) Die();
 		}
 
 		public void Die() //can be private if we make projectiles do dmg instead of kill

@@ -392,7 +392,8 @@ MonoBehaviour:
   maxFlashInterval: 1
   slomoTime: 0.3
   slomoScale: 0.3
-  weaponBreakParticles: {fileID: 976220109959858044}
+  weaponBreakVFX: {fileID: 976220109959858044}
+  weaponBreakRadius: 1.5
 --- !u!1 &7488675884497681748
 GameObject:
   m_ObjectHideFlags: 0
