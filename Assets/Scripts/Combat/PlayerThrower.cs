@@ -44,7 +44,7 @@ namespace WeaponEverything.Combat
 
 			lr.enabled = true;
 
-			if (weapon.FetchCurrentWeapon() == WeaponType.Unarmed || stash.FetchChargeAmount() == 0) lr.material.color = Color.red;
+			if (weapon.currentWeapon == WeaponType.Unarmed || stash.chargesAmount == 0) lr.material.color = Color.red;
 			else lr.material.color = Color.white;
 
 			aimVector = new Vector3(aimDirection.x, aimDirection.y, 0);
@@ -55,7 +55,7 @@ namespace WeaponEverything.Combat
 
 		public void Throw(Vector2 aimDirection)
 		{
-			if(weapon.FetchCurrentWeapon() == WeaponType.Unarmed || stash.FetchChargeAmount() == 0) return;
+			if(weapon.currentWeapon == WeaponType.Unarmed || stash.chargesAmount == 0) return;
 
 			float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
 

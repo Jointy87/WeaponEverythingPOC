@@ -23,7 +23,7 @@ namespace WeaponEverything.Combat
 		//States
 		float dashTimer = 0;
 		float pushBackTimer = 0;
-		bool isRolling = false;
+		public bool isRolling {get; private set;} = false;
 
 		private void Awake()
 		{
@@ -78,13 +78,13 @@ namespace WeaponEverything.Combat
 
 		public void GetHit(Transform enemyPos)
 		{
-			if (stash.FetchChargeAmount() > 0)
+			if (stash.chargesAmount > 0)
 			{
 				StartCoroutine(PushBack(enemyPos));
 			}
-			else if (stash.IsAlive())
+			else if (stash.isAlive)
 			{
-				stash.SetIsAlive(false);
+				stash.isAlive = false;
 				Die();
 			} 
 		}
@@ -115,7 +115,7 @@ namespace WeaponEverything.Combat
 				yield return null;
 			}
 			
-			if(weapon.FetchDecayTimerActive()) weapon.SetDecayTimer(0);
+			if(weapon.decayTimerActive) weapon.decayTimer = 0;
 			else stash.RemoveCharge();
 		}
 
@@ -130,11 +130,6 @@ namespace WeaponEverything.Combat
 		{
 			isRolling = false;
 			weapon.GetComponentInChildren<SpriteRenderer>().enabled = true;
-		}
-
-		public bool IsRolling()
-		{
-			return isRolling;
 		}
 
 		private void OnDisable()

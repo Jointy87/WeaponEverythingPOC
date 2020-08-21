@@ -10,12 +10,12 @@ namespace WeaponEverything.Movement
 		[SerializeField] float moveSpeed = 10f;
 
 		//States
-		bool facingRight = true;
-		bool isAlive = true;
+		public bool facingRight{get; private set;} = true;
+		public bool isAlive {get; set;} = true;
 
 		// Cache
 		Animator animator;
-		Rigidbody2D rb;
+		public Rigidbody2D rb {get; set;}
 
 		private void Awake()
 		{
@@ -67,21 +67,6 @@ namespace WeaponEverything.Movement
 			Vector3 theScale = transform.localScale;
 			theScale.x *= -1;
 			transform.localScale = theScale;
-		}
-
-		public void SetVelocity(float xVelocity, float yVelocity)
-		{
-			rb.velocity = new Vector2(xVelocity, yVelocity);
-		}
-
-		public void SetIsAlive(bool value)
-		{
-			isAlive = value;
-		}
-
-		public bool FetchFacingRight()
-		{
-			return facingRight;
 		}
 	}
 }

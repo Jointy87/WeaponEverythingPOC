@@ -14,9 +14,9 @@ namespace WeaponEverything.Core
 
 		//States
 		int stashSize = 0;
-		bool isAlive = true;
+		public bool isAlive {get; set;} = true;
 		float fillAmount = 0;
-		int chargesAmount = 0;
+		public int chargesAmount {get; private set;} = 0;
 
 		public delegate void PlayerDieDelegate();
 		public event PlayerDieDelegate onPlayerDeath;
@@ -72,21 +72,6 @@ namespace WeaponEverything.Core
 			else chargesAmount--;
 
 			if(chargesAmount == 0) onWeaponSwap(0);
-		}
-
-		public float FetchChargeAmount()
-		{
-			return chargesAmount;
-		}
-
-		public bool IsAlive()
-		{
-			return isAlive;
-		}
-
-		public void SetIsAlive(bool value)
-		{
-			isAlive = value;
 		}
 	}
 }

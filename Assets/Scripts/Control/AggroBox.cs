@@ -14,7 +14,7 @@ namespace WeaponEverything.Control
 		{
 			if (other.tag == "Player")
 			{
-				enemy.SetCanEngage(true);
+				enemy.canEngage = true;
 			}
 		}
 
@@ -22,7 +22,7 @@ namespace WeaponEverything.Control
 		{
 			if (other.tag == "Player")
 			{
-				enemy.SetCanEngage(false);
+				enemy.canEngage = false;
 			}
 		}
 	}

@@ -36,6 +36,7 @@ namespace WeaponEverything.Combat
 
 		public WeaponAttackPoints FetchAttackPoints(WeaponType type)	
 		{
+			BuildLookup();
 			return weaponLookUpTable[type].attackPoints;
 		}
 

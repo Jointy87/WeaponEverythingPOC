@@ -27,7 +27,7 @@ namespace WeaponEverything.Combat
 
 		// States
 		bool canAttack = true;
-		bool canEngage = false;
+		public bool canEngage {get; set;} = false;
 		float timeSinceLastAttack = Mathf.Infinity;
 		Vector2 guardPosition;
 		bool isAttacking = false;
@@ -45,7 +45,7 @@ namespace WeaponEverything.Combat
 
 		private void Update()
 		{
-			if (!GetComponent<EnemyHealth>().FetchAlive()) return;
+			if (!GetComponent<EnemyHealth>().isAlive) return;
 
 			timeSinceLastAttack += Time.deltaTime;
 
@@ -58,7 +58,7 @@ namespace WeaponEverything.Combat
 		{
 			if (isAttacking) return;
 
-			if (canEngage && stashSystem.IsAlive())
+			if (canEngage && stashSystem.isAlive)
 			{
 				EngageTarget(player);
 			}
@@ -80,7 +80,7 @@ namespace WeaponEverything.Combat
 					isAttacking = true;
 					timeSinceLastAttack = 0;
 					animator.SetTrigger("attack");
-					mover.SetVelocity(0, 0);
+					mover.rb.velocity = new Vector2(0, 0);
 				}
 			}
 			else
@@ -91,8 +91,8 @@ namespace WeaponEverything.Combat
 
 		private void CheckAttackDirection(Transform target)
 		{
-			if(target.position.x > transform.position.x && !mover.FetchFacingRight()) mover.Flip();
-			else if(target.position.x < transform.position.x && mover.FetchFacingRight()) mover.Flip();
+			if(target.position.x > transform.position.x && !mover.facingRight) mover.Flip();
+			else if(target.position.x < transform.position.x && mover.facingRight) mover.Flip();
 		}
 
 		private void ReturnToGuardPosition()
@@ -102,7 +102,7 @@ namespace WeaponEverything.Combat
 
 		private void CheckForPlayerRoll()
 		{
-			if (playerFighter.IsRolling())
+			if (playerFighter.isRolling)
 			{
 				myCollider.enabled = false;
 			}
@@ -110,11 +110,6 @@ namespace WeaponEverything.Combat
 			{
 				myCollider.enabled = true;
 			}
-		}
-
-		public void SetCanEngage(bool value)
-		{
-			canEngage = value;
 		}
 
 		// Called from animator
@@ -125,7 +120,7 @@ namespace WeaponEverything.Combat
 				Collider2D hitPlayer = Physics2D.OverlapCircle(attackPoints[pointIndex].position,
 				attackPointRadius[pointIndex], playerLayer);
 
-				if (!hitPlayer || playerFighter.IsRolling()) continue;
+				if (!hitPlayer || playerFighter.isRolling) continue;
 
 				hitPlayer.GetComponent<PlayerFighter>().GetHit(this.transform);
 				return;

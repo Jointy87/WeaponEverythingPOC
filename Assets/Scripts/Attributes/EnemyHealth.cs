@@ -16,7 +16,7 @@ namespace WeaponEverything.Attributes
 
 		//States
 		float healthPoints;
-		bool isAlive = true;
+		public bool isAlive {get; private set;} = true;
 
 		private void Start() 
 		{
@@ -54,17 +54,12 @@ namespace WeaponEverything.Attributes
 		{
 			GetComponent<Animator>().SetTrigger("die");
 			GetComponent<CapsuleCollider2D>().enabled = false;
-			GetComponent<EnemyMover>().SetVelocity(0, 0);
+			GetComponent<EnemyMover>().rb.velocity = new Vector2(0, 0);
 			isAlive = false;
-			GetComponent<EnemyMover>().SetIsAlive(false);
+			GetComponent<EnemyMover>().isAlive = false;
 
 			GameObject spawnedPickup =
 				Instantiate(chargeDrop, transform.position, Quaternion.identity);
-		}
-
-		public bool FetchAlive()
-		{
-			return isAlive;
 		}
 	}
 }

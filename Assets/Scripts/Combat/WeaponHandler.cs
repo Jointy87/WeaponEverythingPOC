@@ -28,10 +28,10 @@ namespace WeaponEverything.Combat
 		//States
 		int startValue = 0;
 		int condition = 0;
-		WeaponType currentWeapon;
-		WeaponAttackPoints attackPoints = null;
-		bool decayTimerActive = false;
-		float decayTimer = 0;
+		public WeaponType currentWeapon {get; private set;}
+		WeaponAttackPoints attackInfo = null;
+		public bool decayTimerActive {get; private set;} = false;
+		public float decayTimer {get; set;} = 0;
 		bool flashed = false;
 		bool hasHit = false;
 		bool weaponBreakActive = false;
@@ -65,7 +65,7 @@ namespace WeaponEverything.Combat
 
 		public void SwitchWeapons()
 		{
-			if (stash.FetchChargeAmount() == 0) return;
+			if (stash.chargesAmount == 0) return;
 
 			if (currentWeapon == (WeaponType)Enum.GetValues(typeof(WeaponType)).Length - 1)
 			{
@@ -82,9 +82,9 @@ namespace WeaponEverything.Combat
 		public void SetCurrentWeapon(WeaponType weapon)
 		{
 			currentWeapon = weapon;
-			Destroy(attackPoints);
+			Destroy(attackInfo);
 			animator.runtimeAnimatorController = weaponsInfo.FetchWeaponAnimator(weapon);
-			attackPoints = Instantiate(weaponsInfo.FetchAttackPoints(weapon), transform);
+			attackInfo = Instantiate(weaponsInfo.FetchAttackPoints(weapon), transform);
 
 			if(!weaponsInfo.FetchWeaponMaterial(currentWeapon)) return;
 			render.material = weaponsInfo.FetchWeaponMaterial(currentWeapon);
@@ -103,7 +103,7 @@ namespace WeaponEverything.Combat
 				decayTimer = 0;
 				decayTimerActive = false;
 				flashed = false;
-				if (stash.FetchChargeAmount() != 0) stash.RemoveCharge();
+				if (stash.chargesAmount != 0) stash.RemoveCharge();
 				StartCoroutine(ActivateWeaponBreak());
 				PlayWeaponBreakParticles();
 			}
@@ -141,10 +141,10 @@ namespace WeaponEverything.Combat
 		{
 			if(hasHit) return;
 
-			for (int pointIndex = 0; pointIndex <= attackPoints.FetchAttackPoints().Length - 1; pointIndex++)
+			for (int pointIndex = 0; pointIndex <= attackInfo.FetchAttackPoints().Length - 1; pointIndex++)
 			{
-				Transform[] points = attackPoints.FetchAttackPoints();
-				float[] pointRadius = attackPoints.FetchAttackPointRadius();
+				Transform[] points = attackInfo.FetchAttackPoints();
+				float[] pointRadius = attackInfo.FetchAttackPointRadius();
 
 				Collider2D[] hitEnemies =
 				Physics2D.OverlapCircleAll(points[pointIndex].position,
@@ -158,7 +158,7 @@ namespace WeaponEverything.Combat
 						hasHit = true;
 					}
 					
-					if (decayTimerActive == false && stash.FetchChargeAmount() > 0 && currentWeapon != WeaponType.Unarmed)
+					if (decayTimerActive == false && stash.chargesAmount > 0 && currentWeapon != WeaponType.Unarmed)
 					{
 						decayTimerActive = true;
 						decayTimer = decayTime;
@@ -173,11 +173,6 @@ namespace WeaponEverything.Combat
 			animator.SetFloat("verticalSpeed", parentRigidbody.velocity.y);
 		}
 
-		public WeaponType FetchCurrentWeapon()
-		{
-			return currentWeapon;
-		}
-
 		public void StopAttack() //Called by animator
 		{
 			mover.GetComponent<Animator>().SetTrigger("stopAttacking");
@@ -187,16 +182,6 @@ namespace WeaponEverything.Combat
 		public void PlayWeaponBreakParticles() //Called by animator
 		{
 			weaponBreakParticles.Play();
-		}
-
-		public bool FetchDecayTimerActive()
-		{
-			return decayTimerActive;
-		}
-
-		public void SetDecayTimer(float value)
-		{
-			decayTimer = value;
 		}
 
 		private void OnDisable()

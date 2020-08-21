@@ -35,7 +35,7 @@ namespace WeaponEverything.Control
 
 		void Update()
 		{
-			if (!stashSystem.IsAlive()) return;
+			if (!stashSystem.isAlive) return;
 
 			horizontalMove = Input.GetAxisRaw("Horizontal") * mover.FetchMoveSpeed() *
 				Time.fixedDeltaTime;
