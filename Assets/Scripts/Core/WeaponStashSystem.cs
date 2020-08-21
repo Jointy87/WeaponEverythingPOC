@@ -21,7 +21,6 @@ namespace WeaponEverything.Core
 		float fillAmount = 0;
 		public int chargesAmount {get; private set;} = 0;
 		float flashTimer = Mathf.Infinity;
-		bool flashCharge = false;
 		int chargeToFlash = 0;
 
 		public delegate void PlayerDieDelegate();
@@ -87,7 +86,6 @@ namespace WeaponEverything.Core
 		private IEnumerator StartFlash()
 		{
 			flashTimer = 0;
-			flashCharge = true;
 			chargeToFlash = chargesAmount;
 			TriggerChargeLossVFX();
 
@@ -103,7 +101,6 @@ namespace WeaponEverything.Core
 			Color originalColor = Color.black;
 			originalColor.a = 0.274f;
 			charges[chargeToFlash].transform.parent.GetComponent<Image>().color = originalColor;
-			flashCharge = false;
 		}
 
 		private void TriggerChargeLossVFX()

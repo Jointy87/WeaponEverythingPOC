@@ -34,7 +34,6 @@ namespace WeaponEverything.Combat
 		public float decayTimer {get; set;} = 0;
 		bool flashed = false;
 		bool hasHit = false;
-		bool weaponBreakActive = false;
 		float weaponBreakTimer = Mathf.Infinity;
 
 		private void Awake()
@@ -60,7 +59,6 @@ namespace WeaponEverything.Combat
 		{
 			HandleDecayTimerAndFlashing();
 			CheckWeaponFlashState();
-			UpdateWeaponBreakTimer();
 		}
 
 		public void SwitchWeapons()
@@ -118,22 +116,14 @@ namespace WeaponEverything.Combat
 		public IEnumerator ActivateWeaponBreak()
 		{
 			weaponBreakTimer = 0;
-			weaponBreakActive = true;
 
 			while (weaponBreakTimer < slomoTime)
 			{
+				weaponBreakTimer += Time.deltaTime;
 				Time.timeScale = slomoScale;
 				yield return null;
 			}
-
-			weaponBreakActive = false;
 			Time.timeScale = 1f;
-		}
-
-		private void UpdateWeaponBreakTimer()
-		{
-			if (!weaponBreakActive) return;
-			weaponBreakTimer += Time.deltaTime;
 		}
 
 		//Called from animator
