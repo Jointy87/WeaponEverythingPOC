@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace WeaponEverything.Core
 {
@@ -11,12 +12,17 @@ namespace WeaponEverything.Core
 		[SerializeField] float containerMaxFill = 10;
 		[SerializeField] GameObject containerFiller;
 		[SerializeField] GameObject[] charges;
+		[SerializeField] float flashTime = .3f;
+		[SerializeField] ParticleSystem chargeLossVFX;
 
 		//States
 		int stashSize = 0;
 		public bool isAlive {get; set;} = true;
 		float fillAmount = 0;
 		public int chargesAmount {get; private set;} = 0;
+		float flashTimer = Mathf.Infinity;
+		bool flashCharge = false;
+		int chargeToFlash = 0;
 
 		public delegate void PlayerDieDelegate();
 		public event PlayerDieDelegate onPlayerDeath;
@@ -69,9 +75,41 @@ namespace WeaponEverything.Core
 				isAlive = false;
 				onPlayerDeath();
 			}
-			else chargesAmount--;
+			else
+			{
+				chargesAmount--;
+				StartCoroutine(StartFlash());
+			}
 
-			if(chargesAmount == 0) onWeaponSwap(0);
+			if (chargesAmount == 0) onWeaponSwap(0);
+		}
+
+		private IEnumerator StartFlash()
+		{
+			flashTimer = 0;
+			flashCharge = true;
+			chargeToFlash = chargesAmount;
+			TriggerChargeLossVFX();
+
+			while(flashTimer < flashTime)
+			{
+				flashTimer += Time.deltaTime;
+				Color flashColor = new Color(0, 252, 255);
+				flashColor.a = 1;
+				charges[chargeToFlash].transform.parent.GetComponent<Image>().color = flashColor;
+				yield return null;
+			}
+
+			Color originalColor = Color.black;
+			originalColor.a = 0.274f;
+			charges[chargeToFlash].transform.parent.GetComponent<Image>().color = originalColor;
+			flashCharge = false;
+		}
+
+		private void TriggerChargeLossVFX()
+		{
+			chargeLossVFX.transform.position = charges[chargeToFlash].transform.position;
+			chargeLossVFX.Play();
 		}
 	}
 }

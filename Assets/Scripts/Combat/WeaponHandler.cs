@@ -17,7 +17,7 @@ namespace WeaponEverything.Combat
 		[SerializeField] float minFlashInterval = .1f, maxFlashInterval = 1f;
 		[SerializeField] float slomoTime = 1f;
 		[SerializeField] float slomoScale = .3f;
-		[SerializeField] ParticleSystem weaponBreakParticles = null;
+		[SerializeField] ParticleSystem weaponBreakVFX = null;
 
 		//Cache
 		Animator animator;
@@ -105,7 +105,7 @@ namespace WeaponEverything.Combat
 				flashed = false;
 				if (stash.chargesAmount != 0) stash.RemoveCharge();
 				StartCoroutine(ActivateWeaponBreak());
-				PlayWeaponBreakParticles();
+				PlayWeaponBreakVFX();
 			}
 		}
 
@@ -179,9 +179,9 @@ namespace WeaponEverything.Combat
 			hasHit = false;
 		}
 
-		public void PlayWeaponBreakParticles() //Called by animator
+		public void PlayWeaponBreakVFX() //Called by animator
 		{
-			weaponBreakParticles.Play();
+			weaponBreakVFX.Play();
 		}
 
 		private void OnDisable()
