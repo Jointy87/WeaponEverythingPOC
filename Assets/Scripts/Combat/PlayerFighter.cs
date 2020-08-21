@@ -100,7 +100,7 @@ namespace WeaponEverything.Combat
 			float currentY = transform.position.y;
 
 			if (weapon.decayTimerActive) weapon.decayTimer = 0;
-			else stash.RemoveCharge();
+			else stash.RemoveCharge("fighter");
 
 			while (pushBackTimer < pushBackDuration)
 			{

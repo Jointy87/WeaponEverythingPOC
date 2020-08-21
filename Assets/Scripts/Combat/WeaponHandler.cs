@@ -101,7 +101,7 @@ namespace WeaponEverything.Combat
 				decayTimer = 0;
 				decayTimerActive = false;
 				flashed = false;
-				if (stash.chargesAmount != 0) stash.RemoveCharge();
+				if (stash.chargesAmount != 0) stash.RemoveCharge("weapon");
 			}
 		}
 

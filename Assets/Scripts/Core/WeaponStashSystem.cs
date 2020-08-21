@@ -70,7 +70,7 @@ namespace WeaponEverything.Core
 			
 		}
 
-		public void RemoveCharge()
+		public void RemoveCharge(string origin)
 		{
 			if (chargesAmount == 0)
 			{
@@ -80,8 +80,10 @@ namespace WeaponEverything.Core
 			else
 			{
 				chargesAmount--;
-				StartCoroutine(WeaponBreakSlomo());
 				StartCoroutine(StartFlash());
+				
+				if(origin == "throw") return;
+				StartCoroutine(WeaponBreakSlomo());
 				onRemoveCharge();
 			}
 
